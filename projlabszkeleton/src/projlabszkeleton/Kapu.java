@@ -31,10 +31,10 @@ public class Kapu implements Elem{
 	}
 	
 	public void ad(SpecialisHely helyem){
-		System.out.println("\t{Kapu}: ad(SpecialisHely)");
+		Program.println("<<{Kapu}: ad(SpecialisHely)");
 	}
 	
 	public void ad(Kapu masikkapu){
-		System.out.println("\t{Kapu}: ad(Kapu)");
+		Program.println("<<{Kapu}: ad(Kapu)");
 	}
 }
