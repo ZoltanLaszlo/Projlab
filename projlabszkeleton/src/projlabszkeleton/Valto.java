@@ -15,12 +15,12 @@ public class Valto extends Sin {
 	}
 	
 	public void valts(){
-		System.out.println("Valto: valts(): void");
+		System.out.println("v1{Valto}: valts(): void");
 	}
 	
 	@Override
 	public Boolean akcio(){
-		System.out.println("Valto calls valts(): void on Valto");
+		System.out.println("v1{Valto} calls valts(): void on v1{Valto}");
 		valts();
 		return true;
 	}
