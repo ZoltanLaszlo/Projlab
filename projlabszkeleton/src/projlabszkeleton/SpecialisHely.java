@@ -5,7 +5,7 @@ public class SpecialisHely extends Sin{
 	
 	@Override
 	public Boolean akcio(){
-		System.out.println("{SpecialisHely} akcio():");
+		Program.println("{SpecialisHely} akcio():");
 		Program.println("kap1{Kapu} Created");
 		Program.println("s4{SpecialisHely} calls ad(kap1: Kapu) on s4{SpecialisHely}");
 		new SpecialisHely().ad(new Kapu());
