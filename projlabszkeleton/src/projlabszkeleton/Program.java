@@ -141,5 +141,35 @@ public class Program {
 			return 0;
 		return -1;
 	}
+	/**
+	 * alagút folytatása mivel az alagút bejáráshoz többször kell lépni a program itt folytatódik
+	 
+	 */
+	public void alagutfolyt(){
+		System.out.println(">>elso{Palya} calls"
+			+ " lep():void on "
+			+ "kap1{Kapu}");
+	new Kapu().lep();
+	System.out.println(">>elso{Palya} calls"
+			+ " lep():void on "
+			+ "mo{Mozdony}");
+
+	System.out.println(">>mo{Mozdony} calls"
+			+ " kovetkezo(s2):Sin on "
+			+ "s3{SpecialisHely}");
+		new SpecialisHely().kovetkezo(new Sin());
+		
+	}
+	
+	/**
+	 * A váltó bejárása esetén legalább két lépést kell tenni valójában a sima lépés szekvenciája játszódik le kétszer
+	 
+	 */
+	public void valtofolyt(){
+		System.out.println(">>elso{Palya} calls"
+				+ " lep():void on "
+				+ "mo{Mozdony}");
+		new Mozdony().lep();
+	}
 
 }
