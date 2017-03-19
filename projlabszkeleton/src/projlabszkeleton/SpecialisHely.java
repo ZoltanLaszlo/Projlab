@@ -1,5 +1,7 @@
 package projlabszkeleton;
 
+import java.util.Scanner;
+
 public class SpecialisHely extends Sin{
 	private Kapu kapum;
 	
