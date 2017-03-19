@@ -28,7 +28,7 @@ public class Program {
 		case 3 :
 			System.out.println("valto allitas");
 			System.out.println("elso{Palya} calls akcio(): boolean on v1{Valto}");
-			v1.akcio();
+			new Valto().akcio();
 			break;
 		case 4 :
 			System.out.println("kapu allitas");
