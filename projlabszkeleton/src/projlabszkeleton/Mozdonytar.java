@@ -1,0 +1,14 @@
+package projlabszkeleton;
+
+import java.util.ArrayList;
+public class Mozdonytar {
+	private ArrayList<Mozdony> vonatok = new ArrayList<Mozdony>();
+	
+	public void ad (Mozdony mo){
+		
+	}
+	public boolean vannemuresvonat(){
+		//megkérdezzük hány vonat van és annyiszor meghívjuk egy mozdonyra az osszesures fv-t és ha valamikor false jön vissza true-t adunk adunk
+		return true;
+	}
+}
