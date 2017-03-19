@@ -16,7 +16,7 @@ public class Program {
 			println("inicializalas:");
 			
 			Palya palya = new Palya();
-			println("palya{Palya} Created");
+			println(">>palya{Palya} Created");
 			println(">>{Program} calls start():void on palya{Palya}");
 			palya.start();
 			break;
