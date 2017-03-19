@@ -8,12 +8,12 @@ public class SpecialisHely extends Sin{
 		Program.println("<<{SpecialisHely} akcio():");
 		System.out.println("Kaput felvenni vagy lerakni szeretnél?");
 		Program.println("? Kapu [felvetel]: 1 [lerakás]: 2");
+		int line;
+		line = Program.menupontValasztas("Kaput felvenni vagy lerakni szeretnél?", 1, 2);
 		Scanner scn = new Scanner(System.in);
-		String line = scn.nextLine();
-		if(line.equals("2")){				//ha lerakás
-			System.out.println("van már lerakva kapu? i/n");
-			line = scn.nextLine();
-			if(line.equals("n")){		//lerakás és még nincs másik kapu
+		//String line = scn.nextLine();
+		if(line == 2){				//ha lerakás
+			if(Program.menupontValasztas("van már lerakva kapu?")){
 				Program.println("<<kap1{Kapu} Created");
 				Program.println("<<s4{SpecialisHely} calls ad(kap1: Kapu) on s4{SpecialisHely}");
 				new SpecialisHely().ad(new Kapu());
@@ -21,7 +21,7 @@ public class SpecialisHely extends Sin{
 				new Kapu().ad(new SpecialisHely());
 				Program.println("<<s4{SpecialisHely}: akcio() returned true: boolean");
 				return true;
-			} else if(line.equals("i")){		//lerakás és már van másik kapu
+			} else if(!Program.menupontValasztas("van már lerakva kapu?")){
 				Program.println("<<kap2{Kapu} Created");
 				Program.println("<<s5{SpecialisHely} calls ad(kap2: Kapu) on kap1{Kapu}");
 				new Kapu().ad(new Kapu());
@@ -37,7 +37,7 @@ public class SpecialisHely extends Sin{
 			
 
 		}
-		else if(line.equals("1")){		//ha felvétel
+		else if(line == 1){
 			Program.println("<<s4{SpecialisHely} calls ad(null: Kapu) on s4{SpecialisHely}");
 		}
 		
