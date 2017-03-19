@@ -4,9 +4,23 @@ import java.awt.*;
 
 public class Megallo extends Sin{
 	private Color szin;
+	//ha egy kocsi rÃ¡lÃ©p ellenÅ‘rzi hogy mi a szÃ­ne ha megegyizik akkor kezdemÃ©nyezi a leszÃ¡llÃ¡st a kocsinÃ¡l
 	@Override
 	public void ad(Kocsi k){
-		//ellenõrzi a szinét a kocsinak és leszállít ha kell
+		System.out.println(">>s3{Megallo} calls"
+				+ " szin():Color on "
+				+ "k{Kocsi}");
+		k.szin();
+		System.out.println("? megegyezik [igen][nem]");
+		//Scanner scanner = new Scanner(System.in);
+		String input = new Program().scanner.nextLine();
+		//scanner.close();
+		if(input.equals("igen")){
+			System.out.println(">>s3{Megallo} calls"
+					+ " leszallas():void on "
+					+ "k{Kocsi}");
+			new Kocsi().leszallas();
+		}
 	}
 	public Color szin(){
 		return szin;
