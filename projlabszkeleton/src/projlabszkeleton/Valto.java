@@ -7,6 +7,7 @@ public class Valto extends Sin {
 	@Override
 	public void ad(Sin s){
 		
+		new Program().valtofolyt(); // ez csak azért van itt hogy ha váltóra lépünk tudjunk újabb lépést tenni
 	}
 	
 	@Override
