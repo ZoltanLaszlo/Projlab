@@ -6,17 +6,19 @@ public class SpecialisHely extends Sin{
 	@Override
 	public Boolean akcio(){
 		System.out.println("{SpecialisHely} akcio():");
-		System.out.println("\tkap1{Kapu} Created");
-		System.out.println("\ts4{SpecialisHely} calls ad(kap1: Kapu) on s4{SpecialisHely}");
+		Program.println("kap1{Kapu} Created");
+		Program.println("s4{SpecialisHely} calls ad(kap1: Kapu) on s4{SpecialisHely}");
 		new SpecialisHely().ad(new Kapu());
-		System.out.println("\ts4{SpecialisHely} calls ad(s4: SpecialisHely) on kap1{Kapu}");
+		Program.println("s4{SpecialisHely} calls ad(s4: SpecialisHely) on kap1{Kapu}");
 		new Kapu().ad(new SpecialisHely());
-		System.out.println("\tkap2{Kapu} Created");
-		System.out.println("\ts5{SpecialisHely} calls ad(kap2: Kapu) on kap1{Kapu}");
+		Program.println("kap2{Kapu} Created");
+		Program.println("s5{SpecialisHely} calls ad(kap2: Kapu) on kap1{Kapu}");
 		new Kapu().ad(new Kapu());
-		System.out.println("\ts5{SpecialisHely} calls ad(kap1: Kapu) on kap2{Kapu}");
+		Program.println("s5{SpecialisHely} calls ad(kap1: Kapu) on kap2{Kapu}");
 		new Kapu().ad(new Kapu());
-		System.out.println("s4{SpecialisHely}: akcio() returned true: boolean");
+		Program.println("s4{SpecialisHely}: akcio() returned true: boolean");
+	
+		return true;
 	}
 	
 	public boolean vankapu(){
@@ -28,7 +30,7 @@ public class SpecialisHely extends Sin{
 	}
 	
 	public void ad(Kapu kapum){
-		System.out.println("\t{SpecialisHely}: ad(Kapu)");
+		Program.println("{SpecialisHely}: ad(Kapu)");
 	}
 	
 	@Override
