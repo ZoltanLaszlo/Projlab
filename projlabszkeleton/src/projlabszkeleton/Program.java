@@ -27,7 +27,8 @@ public class Program {
 			break;
 		case 3 :
 			System.out.println("valto allitas");
-			// TODO
+			System.out.println("elso{Palya} calls akcio(): boolean on v1{Valto}");
+			v1.akcio();
 			break;
 		case 4 :
 			System.out.println("kapu allitas");
