@@ -4,7 +4,7 @@ import java.util.Scanner;
 
 public class Program {
 
-	private static Scanner scanner = new Scanner(System.in);
+	public static Scanner scanner = new Scanner(System.in);
 	private static int melyseg;
 
 	public static void main(String[] args) {
@@ -21,8 +21,9 @@ public class Program {
 			palya.start();
 			break;
 		case 2:
-			println("mozdonyleptetes");
-			// TODO
+			println("mozdonyleptetes");			
+			System.out.println(">>elso{Palya} calls lep():void on mo{Mozdony}");
+			new Mozdony().lep(); // léptetjük a mozdonyt ez elindítja a sima lépés szekvenciáját
 			break;
 		case 3:
 			println("valto allitas");
