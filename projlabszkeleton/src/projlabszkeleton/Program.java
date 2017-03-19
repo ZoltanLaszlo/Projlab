@@ -30,8 +30,9 @@ public class Program {
 			new Valto().akcio();
 			break;
 		case 4:
-			println("kapu allitas");
-			// TODO
+			System.out.println("kapu allitas");
+			System.out.println("elso{Palya} calls akcio(): boolean on s4{SpecialisHely}");
+			new SpecialisHely().akcio();
 			break;
 		case 5:
 			println("jatek vege");

@@ -29,5 +29,12 @@ public class Kapu implements Elem{
 		System.out.println("<<kap:Kapu");
 		return masikkapu;
 	}
-
+	
+	public void ad(SpecialisHely helyem){
+		System.out.println("\t{Kapu}: ad(SpecialisHely)");
+	}
+	
+	public void ad(Kapu masikkapu){
+		System.out.println("\t{Kapu}: ad(Kapu)");
+	}
 }
