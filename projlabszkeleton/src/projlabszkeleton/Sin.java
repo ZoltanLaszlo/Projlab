@@ -17,7 +17,7 @@ public class Sin implements Elem{
 		String be=new String();
 		System.out.println("? Hova lépünk? [Sin][Alagut][Megallo][Valto]");
 		//Scanner scanner = new Scanner(System.in);
-		be = new Program().scanner.nextLine();
+		be = Program.scanner.nextLine();
 		if(be.equals("Sin")){
 			System.out.println("<<s2{Sin} kovetkezo(s1) returned s3:Sin");
 			return new Sin();

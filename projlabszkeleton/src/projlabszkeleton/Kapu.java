@@ -14,7 +14,7 @@ public class Kapu implements Elem{
 		while(k==-1){
 			System.out.println("? kilépünk [igen][nem]");
 			//Scanner scanner = new Scanner(System.in);
-			String input = new Program().scanner.nextLine();
+			String input = Program.scanner.nextLine();
 			
 			if(input.equals("igen")){
 				k=0;

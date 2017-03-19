@@ -22,6 +22,7 @@ public class SpecialisHely extends Sin{
 				Program.println("<<s4{SpecialisHely} calls ad(s4: SpecialisHely) on kap1{Kapu}");
 				new Kapu().ad(new SpecialisHely());
 				Program.println("<<s4{SpecialisHely}: akcio() returned true: boolean");
+				scn.close();
 				return true;
 			} else if(!Program.menupontValasztas("van már lerakva kapu?")){
 				Program.println("<<kap2{Kapu} Created");
@@ -34,6 +35,7 @@ public class SpecialisHely extends Sin{
 				Program.println("<<s5{SpecialisHely} calls ad(s5: SpecialisHely) on kap2{Kapu}");
 				new SpecialisHely().ad(new Kapu());
 				Program.println("<<s5{SpecialisHely}: akcio() returned true: boolean");
+				scn.close();
 				return true;
 			}
 			
