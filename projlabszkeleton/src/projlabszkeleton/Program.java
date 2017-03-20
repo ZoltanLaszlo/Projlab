@@ -47,6 +47,7 @@ public class Program {
 				new Sin().ad(new Kocsi());
 				println("mo2{Mozdony} calls ad(mo2):void on s2{Sin}");
 				new Sin().ad(new Kocsi());
+				println("Ket mozdony ugyan ott -> Game Over");
 			}
 			break;
 		}
