@@ -12,7 +12,6 @@ public class SpecialisHely extends Sin{
 		Program.println("? Kapu [felvetel]: 1 [lerakás]: 2");
 		int line;
 		line = Program.menupontValasztas("Kaput felvenni vagy lerakni szeretnél?", 1, 2);
-		Scanner scn = new Scanner(System.in);
 		//String line = scn.nextLine();
 		if(line == 2){				//ha lerakás
 			if(Program.menupontValasztas("van már lerakva kapu?")){
@@ -45,7 +44,6 @@ public class SpecialisHely extends Sin{
 			Program.println("<<s4{SpecialisHely} calls ad(null: Kapu) on s4{SpecialisHely}");
 		}
 		
-		scn.close();
 	
 		return false;
 	}
