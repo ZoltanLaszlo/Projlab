@@ -10,7 +10,7 @@ public class Sin implements Elem{
 	}
 	
 	public void ad(Kocsi k){
-		
+		Program.println("<<{Sin}: ad(Kocsi) Kocsi added");
 	}
 	// visszadja a következő sínt az előző sín alapján
 	public Sin kovetkezo(Sin elozo){
