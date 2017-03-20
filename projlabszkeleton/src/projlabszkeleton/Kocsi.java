@@ -46,18 +46,20 @@ public class Kocsi implements Elem {
 	 * álló kocsi küldi
 	 **/
 	public void kocsilepj(Sin ide) {
-		String be = new String();
+		String be=new String();
 		System.out.println("? van meg kocsi amit huzni kell? [igen][nem]");
-		Scanner scanner = new Scanner(System.in);
-		be = scanner.nextLine();
-		if (be.equals("igen")) {
+		be = new Program().scanner.nextLine();
+		if(be.equals("igen")){
 			new Kocsi().kocsilepj(new Sin());
-			System.out.println(">>...{Kocsi} calls" + " ad(Sin):void on " + "...{Kocsi}");
+			System.out.println(">>...{Kocsi} calls"
+					+ " ad(Sin):void on "
+					+ "...{Kocsi}");
 			this.ad(ide);
-			System.out.println(">>...{Kocsi} calls" + " ad(Kocsi):void on " + "...{Sin}");
+			System.out.println(">>...{Kocsi} calls"
+					+ " ad(Kocsi):void on "
+					+ "...{Sin}");
 			ide.ad(this);
 		}
-		scanner.close();
 	}
 
 	public void alagutAllapot(boolean b) {
