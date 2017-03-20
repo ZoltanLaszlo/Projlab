@@ -42,7 +42,7 @@ public class Palya {
 		Program.println(">>palya{Palya} calls ad(s1):void on v{Valto}");
 		v.ad(s1);
 		Program.println(">>palya{Palya} calls ad(k):void on v{Valto}");
-		v.ad(k);
+		//v.ad(k);
 	
 		Program.println(">>palya{Palya} calls ad(v):void on k{Kocsi}");
 		k.ad(v);
