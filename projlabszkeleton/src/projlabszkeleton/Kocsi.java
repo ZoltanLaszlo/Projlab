@@ -48,7 +48,7 @@ public class Kocsi implements Elem {
 	public void kocsilepj(Sin ide) {
 		String be=new String();
 		System.out.println("? van meg kocsi amit huzni kell? [igen][nem]");
-		be = new Program().scanner.nextLine();
+		be = Program.scanner.nextLine();
 		if(be.equals("igen")){
 			new Kocsi().kocsilepj(new Sin());
 			System.out.println(">>...{Kocsi} calls"
