@@ -13,7 +13,7 @@ public class SpecialisHely extends Sin{
 		//String line = scn.nextLine();
 		if(line == 2){				//ha lerakás
 			boolean b = Program.menupontValasztas("van már lerakva kapu?");
-			if(b){
+			if(!b){
 				Program.println("<<kap1{Kapu} Created");
 				Program.println("<<s4{SpecialisHely} calls ad(kap1: Kapu) on s4{SpecialisHely}");
 				new SpecialisHely().ad(new Kapu());
@@ -21,7 +21,7 @@ public class SpecialisHely extends Sin{
 				new Kapu().ad(new SpecialisHely());
 				Program.println("<<s4{SpecialisHely}: akcio() returned true: boolean");
 				return true;
-			} else if(!b){
+			} else if(b){
 				Program.println("<<kap2{Kapu} Created");
 				Program.println("<<s5{SpecialisHely} calls ad(kap2: Kapu) on kap1{Kapu}");
 				new Kapu().ad(new Kapu());
