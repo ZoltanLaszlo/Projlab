@@ -36,6 +36,7 @@ public class Mozdony extends Kocsi{
 	}
 	public boolean OsszesUres(){
 		//elég ezt megkérdezni a felhasználótól nem kell bele menni a részletekbe
+		Program.println("<<all {Mozdony}: OsszesUres() returned true: boolean");
 		return true;
 	}
 
