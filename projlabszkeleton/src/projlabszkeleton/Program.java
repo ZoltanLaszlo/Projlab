@@ -37,7 +37,17 @@ public class Program {
 			break;
 		case 5:
 			println("jatek vege");
-			// TODO
+			int input = menupontValasztas("? Hogyan lett vége? [győzelem]:1 [vereség]:2", 1, 2);
+			if(input == 1){
+				println("elso{Palya} calls vannemuresvonat(): boolean on mk{Mozdonytar}");
+				new Mozdonytar().vannemuresvonat();
+				println("Győzelem, pálya vége");
+			} else if(input == 2){
+				println("mo1{Mozdony} calls ad(mo1):void on s2{Sin}");
+				new Sin().ad(new Kocsi());
+				println("mo2{Mozdony} calls ad(mo2):void on s2{Sin}");
+				new Sin().ad(new Kocsi());
+			}
 			break;
 		}
 
