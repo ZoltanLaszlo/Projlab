@@ -8,7 +8,11 @@ public class Mozdonytar {
 		
 	}
 	public boolean vannemuresvonat(){
-		//megkérdezzük hány vonat van és annyiszor meghívjuk egy mozdonyra az osszesures fv-t és ha valamikor false jön vissza true-t adunk adunk
-		return true;
+		//megkÃ©rdezzÃ¼k hÃ¡ny vonat van Ã©s annyiszor meghÃ­vjuk egy mozdonyra az osszesures fv-t Ã©s ha valamikor false jÃ¶n vissza true-t adunk adunk
+		
+		Program.println("<<mk{Mozdonytar} calls OsszesUres():boolean on all {Mozdony}");
+		new Mozdony().OsszesUres();
+		Program.println("<<mk{MozdonyTar}: vannemuresvonat() returned false: boolean");
+		return false;
 	}
 }
