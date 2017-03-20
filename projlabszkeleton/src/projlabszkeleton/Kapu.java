@@ -54,11 +54,11 @@ public class Kapu implements Elem{
 	}
 	
 	public void ad(SpecialisHely helyem){
-		System.out.println("\t{Kapu}: ad(SpecialisHely)");
+		Program.println("{Kapu}: ad(SpecialisHely)");
 	}
 	
 	public void ad(Kapu masikkapu){
-		System.out.println("\t{Kapu}: ad(Kapu)");
+		Program.println("{Kapu}: ad(Kapu)");
 	}
 	// belépteti a kocsit az alagútba (itt folytatjuk az alagútbejárást mivel több lépés kell
 	public void belep(Kocsi k){
