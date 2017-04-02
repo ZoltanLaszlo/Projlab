@@ -4,7 +4,7 @@ public class Palya {
 	private ArrayList<Elem> elemek;
 	
 	public void start (){
-		//ez az init l�trehoz�s ut�n kiirjuk a k�perny�re hogy l�tre lett hozva
+		//ez az init létrehozás után kiirjuk a képernyőre hogy létre lett hozva
 		Sin s1 = new Sin();
 		Program.println(">>s1{Sin} Created");
 		Megallo m = new Megallo();
@@ -78,7 +78,13 @@ public class Palya {
 		this.add(k);
 	}
 	public void add(Elem e){
-		
+		elemek.add(e);
+	}
+	
+	public void lep() {
+		for (Elem e : elemek) {
+			e.lep();
+		}
 	}
 
 }
