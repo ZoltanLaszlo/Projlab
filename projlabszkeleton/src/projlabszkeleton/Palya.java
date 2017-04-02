@@ -82,9 +82,8 @@ public class Palya {
 	}
 	
 	public void lep() {
-		for (Elem e : elemek) {
+		for (Elem e : elemek)
 			e.lep();
-		}
 	}
 
 }
