@@ -80,10 +80,5 @@ public class Palya {
 	public void add(Elem e){
 		elemek.add(e);
 	}
-	
-	public void lep() {
-		for (Elem e : elemek)
-			e.lep();
-	}
 
 }
