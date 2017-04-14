@@ -1,43 +1,55 @@
 package projlabszkeleton;
 
+import java.awt.Color;
+
 public class Mozdony extends Kocsi{
 	
-	@Override
+	public Mozdony(Color szin, String id){
+		super(0, szin, id);
+		elotte = null;
+		mogotte = null;
+		alagutAllapot = false;
+	}
+	
 	/**
 	A mozdony felel a onat léptetéséért az előző kocsi alapján megtudja ol állt az előző lépésben, majd 
 	ezzel az információval lekérdezi a sín elemét, hogy mi a kovetkező elem. ezt a felhasználó mondja meg.
 	Mald lépteti a kocsiját és magát. (őt nem érdekli mien Sínelemet kap)
 	**/
+	@Override
 	public void lep(){
-		System.out.println(">>mo{Mozdony} calls"
-				+ " sinem():Sin on "
-				+ "k{Kocsi}");
-		new Kocsi().sinem();
-		System.out.println(">>mo{Mozdony} calls"
-				+ " kovetkezo(s1):Sin on "
-				+ "s2{Sin}");
-		Sin s3=new Sin().kovetkezo(new Sin());
-		System.out.println(">>mo{Mozdony} calls"
-				+ " ad(null):void on "
-				+ "s2{Sin}");
-		System.out.println(">>mo{Mozdony} calls"
-				+ " kocsilepj(s2):void on "
-				+ "k{Kocsi}");
-		new Kocsi().kocsilepj(new Sin());
-		System.out.println(">>mo{Mozdony} calls"
-				+ " ad(s3):void on "
-				+ "mo{Mozdony}");
-		this.ad(s3);
-		System.out.println(">>mo{Mozdony} calls"
-				+ " ad(s3):void on "
-				+ "s3{Sin}");
-		s3.ad(this);
+		
+		mogotte.kocsilepj(sin);		//lépteti a mogotte lévő kocsit a saját helyére
+		sin.ad((Kocsi)null);		//felszabadítja az adott sín elemet (ha nincs a mozdony mögé kocsi kötve a sín szabaddá válik)
+		Sin sin3 = sin.kovetkezo(mogotte.sinem());
+		
+		ad(sin3);
+		sin3.ad(this);
 		
 	}
-	public boolean OsszesUres(){
-		//elég ezt megkérdezni a felhasználótól nem kell bele menni a részletekbe
-		Program.println("<<all {Mozdony}: OsszesUres() returned true: boolean");
+	
+	/**
+	 * Megmondja, hogy üres-e az adott vonat, azaz a mozdonyhoz kötött összes kocsi
+	 * 
+	 * @return true, ha az adott mozdonyhoz kötött összes kocsi üres
+	 */
+	public boolean osszesUres(){
+		Kocsi next = mogotte;
+		
+		while(next != null){
+			if(!next.ures())
+				return false;
+			next = next.mogotte;
+		}
 		return true;
+	}
+	
+	/**
+	 * Hozzáköt egy kocsit a mozdony végéhez.
+	 */
+	@Override
+	public void ad(Kocsi kocsi){
+		mogotte = kocsi;
 	}
 
 }
