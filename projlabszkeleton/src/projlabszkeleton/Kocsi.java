@@ -5,98 +5,157 @@ import java.util.Scanner;
 
 public class Kocsi implements Elem {
 
-	private Kocsi elotte;
-	private Kocsi mogotte;
-	private Color szin;
-	private int utasokSzama;
-
+	protected Kocsi elotte;
+	protected Kocsi mogotte;
+	protected Color szin;
+	protected int utasokSzama;
+	protected boolean alagutAllapot;
+	protected Sin sin;
+	protected String id;
+	
+	
+	/**
+	 * Konstruktor
+	 * @param utasokSzama Az adott kocsiban lévő utasok száma
+	 * @param szin A kocsi színe
+	 * @param id A kocsi azonosítója
+	 */
+	public Kocsi(int utasokSzama, Color szin, String id){
+		this.utasokSzama = utasokSzama;
+		this.szin = szin;
+		elotte = null;
+		mogotte = null;
+		alagutAllapot = false;
+	}
+	
+	
 	@Override
 	public void lep() {
-		// TODO Auto-generated method stub
-
+		//does nothing
 	}
 
 	@Override
 	public Boolean akcio() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	public void ad(Kocsi kocsi) {
-
-	}
-
-	public Color szin() {
-		return szin;
-
-	}
-
-	public void ad(Sin sin) {
-
-	}
-
-	// visszadja azt a sint amin áll a kocsi
-	public Sin sinem() {
-		System.out.println("<<k{Kocsi} sinem() returned s1:Sin");
+		//does nothing
 		return null;
 	}
 
 	/**
-	 * minden kocsi ami nem mozdony igy lép tovább arr a mezőre amire az előtte
-	 * álló kocsi küldi
-	 **/
-	public void kocsilepj(Sin ide) {
-		String be=new String();
-		System.out.println("? van meg kocsi amit huzni kell? [igen][nem]");
-		be = Program.scanner.nextLine();
-		if(be.equals("igen")){
-			new Kocsi().kocsilepj(new Sin());
-			System.out.println(">>...{Kocsi} calls"
-					+ " ad(Sin):void on "
-					+ "...{Kocsi}");
-			this.ad(ide);
-			System.out.println(">>...{Kocsi} calls"
-					+ " ad(Kocsi):void on "
-					+ "...{Sin}");
-			ide.ad(this);
-		}
-	}
-
-	public void alagutAllapot(boolean b) {
-
-	}
-
-	/*
-	 * a magallo hívja meg a kocsikon ha a szin megegyezik a kocsi ekkor
-	 * ellenőrzi, hogy az előtte lévő kocsi üres-e ha igen akkor nullára állítja
-	 * az utasok számát
+	 * Hozzáköt egy kocsit az adott kocsihoz, először előre, majd hátra.
+	 * @param kocsi Az adott kocsihoz kötendő kocsi.
 	 */
+	public void ad(Kocsi kocsi) {
+		if(elotte != null)
+			mogotte = kocsi;
+		else
+			elotte = kocsi;
+	}
+
+	/**
+	 * Visszaadja egy adott kocsi színét.
+	 * 
+	 * @return Az adott kocsi színe
+	 */
+	public Color szin() {
+		return szin;
+	}
+	
+	/**
+	 * Hozzárendel egy sín elemet az adott kocsihoz.
+	 * 
+	 * @param sin A hozzárendelendő sín elem.
+	 */
+	public void ad(Sin sin) {
+		this.sin = sin;
+	}
+
+	/**
+	 * Visszaadja az adott kocsihoz rendelt sínt.
+	 * @return A sín elemet amin épp a kocsi áll.
+	 */
+	public Sin sinem() {
+		return sin;
+	}
+
+	/**
+	 * Minden kocsi ami nem mozdony így lép tovább arra a mezőre amire az előtte
+	 * álló kocsi küldi.
+	 * 
+	 * @param ide Az adott kocsi előtt lévő kocsi sine.
+	 * 
+	 * 
+	 **/
+	public void kocsilepj(Sin ide) {	//ide: a kocsi előtt lévő sín elem, ide léptetjük az adott kocsit
+		if(mogotte != null){	//ha van még mögötte kocsi akkor azt ráléptetjük az adott kocsi sínjére
+			mogotte.kocsilepj(sin);
+		}
+		else
+			sin.ad((Kocsi)null);	//ha már nincs mögötte több kocsi akkor továbbléptetésnél felszabadítjuk az adott sínt
+		
+		this.ad(ide);
+		ide.ad(this);
+	}
+
+	/**
+	 * Megmondja, hogy az adott kocsi alagútban van-e.
+	 * @param b true, ha az adott kocsi alagútban van
+	 */
+	public void alagutAllapot(boolean b) {
+		alagutAllapot = b;
+	}
+
+	/**
+	 * A magallo hívja meg a kocsikon ha a szín megegyezik. A kocsi ekkor
+	 * ellenőrzi, hogy az előtte lévő összes kocsi üres-e ha igen akkor nullára állítja
+	 * az utasok számát.
+	 * 
+	 **/
 	public void leszallas() {
-		System.out.println(">>k{Kocsi} calls" + " Ures():boolean on " + "elozo{Kocsi}");
-		if (new Kocsi().ures()) {
-			System.out.println(">>k{Kocsi} calls" + " setUtasokSzama(0):void on " + "k{Kocsi}");
-			this.setUtasokSzama(0);
+		Kocsi next = elotte;
+		
+		while(next != null){
+			if(!next.ures())
+				return;
+			next = next.elotte;
 		}
-
+		
+		setUtasokSzama(0);
 	}
 
+	/**
+	 * Beállítja az utasok számát az adott kocsiban.
+	 * 
+	 * @param utasokSzama Az utasok számának leendő értéke.
+	 */
 	public void setUtasokSzama(int utasokSzama) {
-
+		this.utasokSzama = utasokSzama;
+	}
+	
+	/**
+	 * Visszatér az adott kocsiban lévő utasok számával.
+	 * @return Az adott kocsiban lévő utasok száma.
+	 */
+	public int getUtasokSzama(){
+		return utasokSzama;
 	}
 
-	// visszadja üres e a kocsi vagy nem
+	/**
+	 * Visszadja, hogy üres-e a kocsi vagy sem.
+	 * @return true, ha az adott kocsi üres.
+	 */
 	public boolean ures() {
-		System.out.println("? ures az elotte levo kocsi [igen][nem]");
-		// Scanner scanner = new Scanner(System.in);
-		String input = Program.scanner.nextLine();
-		if (input.equals("igen")) {
-			System.out.println("<<elozo{Kocsi} ures() returned true:boolean");
+		if(utasokSzama == 0)
 			return true;
-		}
-
-		// scanner.close();
-		System.out.println("<<elozo{Kocsi} ures() returned false:boolean");
+		
 		return false;
+	}
+	
+	/**
+	 * Visszatér a kocsi azonosítójával.
+	 * @return A kocsi azonosítója.
+	 */
+	public String getKocsibyID(){
+		return id;
 	}
 
 }
