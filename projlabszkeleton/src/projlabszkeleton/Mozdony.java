@@ -18,8 +18,8 @@ public class Mozdony extends Kocsi{
 	**/
 	@Override
 	public void lep(){
-		
-		mogotte.kocsilepj(sin);		//lépteti a mogotte lévő kocsit a saját helyére
+		if(mogotte != null)
+			mogotte.kocsilepj(sin);		//lépteti a mogotte lévő kocsit a saját helyére
 		sin.ad((Kocsi)null);		//felszabadítja az adott sín elemet (ha nincs a mozdony mögé kocsi kötve a sín szabaddá válik)
 		Sin sin3 = sin.kovetkezo(mogotte.sinem());
 		
