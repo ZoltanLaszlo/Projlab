@@ -9,6 +9,7 @@ public class Palya {
 	 */	
 	public Palya (){
 		elemek=new ArrayList<Elem>();
+		mozdonytar = new Mozdonytar();
 	}
 	
 	/**
