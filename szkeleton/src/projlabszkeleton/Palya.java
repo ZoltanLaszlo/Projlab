@@ -2,39 +2,51 @@ package projlabszkeleton;
 import java.util.ArrayList;
 public class Palya {
 	private ArrayList<Elem> elemek;
+	private Mozdonytar mozdonytar;
 
 	/**
-	 * Konstruktor lÈtrehozza az ¸res t·rat
+	 * Konstruktor l√©trehozza az √ºres t√°rat
 	 */	
 	public Palya (){
 		elemek=new ArrayList<Elem>();
 	}
 	
 	/**
-	 * Itt lesz gener·lva a p·lya, de most a felhaszn·lÛ teszi 
-	 * ˙gyhogy egyenlıre ¸res marad
+	 * Itt lesz gener√°lva a p√°lya, de most a felhaszn√°l√≥ teszi 
+	 * √∫gyhogy egyenl≈ëre √ºres marad
 	 * 
-	 * @param a hozz·adandÛ elem
+	 * @param a hozz√°adand√≥ elem
 	 */	
 	public void start (){
 	}
 
 	/**
-	 * hozz·ad egy elemet a P·ly·hoz
+	 * hozz√°ad egy elemet a P√°ly√°hoz
 	 * 
-	 * @param a hozz·adandÛ elem
+	 * @param a hozz√°adand√≥ elem
 	 */	
 	public void add(Elem e){
 		elemek.add(e);
 	}
 	
 	/**
-	 * lÈpteti az ˆsszes elemet a p·ly·n
+	 * Hozz√°ad egy elemet a P√°ly√°hoz √©s a mozdonyt√°rhoz.
+	 * @param m A hozz√°adadnd√≥ mozdony.
+	 */
+	public void add(Mozdony m){
+		elemek.add(m);
+		mozdonytar.ad(m);
+	}
+	
+	/**
+	 * l√©pteti az √∂sszes elemet a p√°ly√°n
 	 */
 	public void leptetes() throws EndGameException{
 		for(Elem e: elemek){
 			e.lep();
 		}
+		if(!mozdonytar.vanNemUresVonat())
+			throw new EndGameException(true);
 	}
 
 }
