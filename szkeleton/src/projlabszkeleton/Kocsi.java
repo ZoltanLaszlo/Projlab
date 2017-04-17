@@ -25,6 +25,7 @@ public class Kocsi implements Elem {
 		elotte = null;
 		mogotte = null;
 		alagutAllapot = false;
+		this.id=id;
 	}
 	
 	
@@ -108,8 +109,9 @@ public class Kocsi implements Elem {
 	 * ellenőrzi, hogy az előtte lévő összes kocsi üres-e ha igen akkor nullára állítja
 	 * az utasok számát.
 	 * 
+	 * @param le A megálló ahova leszállnak az utasok
 	 **/
-	public void leszallas() {
+	public void leszallas(Megallo le) {
 		Kocsi next = elotte;
 		
 		while(next != null){
@@ -117,7 +119,7 @@ public class Kocsi implements Elem {
 				return;
 			next = next.elotte;
 		}
-		
+		le.setUtasokszama(utasokSzama);
 		setUtasokSzama(0);
 	}
 
