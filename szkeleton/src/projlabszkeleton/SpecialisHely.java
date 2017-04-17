@@ -2,25 +2,30 @@ package projlabszkeleton;
 
 public class SpecialisHely extends Sin{
 	private Kapu kapum;
-	static private int kapukszama=0;
-	static private Kapu felkapu=null;
+	private boolean leptem;
+	static private int kapukszama;
+	static private Kapu felkapu;
 
 	/**
-	 * Konstruktor ami egy id-vel látja el a sint, hogy tudjuk kezelni
+	 * Konstruktor ami egy id-vel lÃ¡tja el a sint, hogy tudjuk kezelni
 	 *
 	 * @param  nev  A nev amit adni akarunk a sinnek
 	 */
 	public SpecialisHely(String nev){
 		super(nev);
+		kapukszama=0;
+		felkapu=null;
+		leptem=false;
+		kapum=null;
 	}
 	
 	/**
-	 * A Pálya osztály ezen keresztül jelzi, hogy a felhasználó akar valamit a speciális hellyel
-	 * Ha már van kapu rajta, akkor leveszi, és megszünteti az alagutat Persze csak akkor engedi, ha az üres
-	 * Ha még nincs attól függ mit csinál, hogy hány kapu van már a pályán
-	 * ha nulla akkor egyszerûen lerak egy kaput
-	 * ha egy akkor megcsinálja a csatlakozást a két kapu között
-	 * ha kettõ, akkor nem engedi, hogy lerakjunk egy újat TooMuchKapuException-t dob.
+	 * A PÃ¡lya osztÃ¡ly ezen keresztÃ¼l jelzi, hogy a felhasznÃ¡lÃ³ akar valamit a speciÃ¡lis hellyel
+	 * Ha mÃ¡r van kapu rajta, akkor leveszi, Ã©s megszÃ¼nteti az alagutat Persze csak akkor engedi, ha az Ã¼res
+	 * Ha mÃ©g nincs attÃ³l fÃ¼gg mit csinÃ¡l, hogy hÃ¡ny kapu van mÃ¡r a pÃ¡lyÃ¡n
+	 * ha nulla akkor egyszerÅ±en lerak egy kaput
+	 * ha egy akkor megcsinÃ¡lja a csatlakozÃ¡st a kÃ©t kapu kÃ¶zÃ¶tt
+	 * ha kettÅ‘, akkor nem engedi, hogy lerakjunk egy Ãºjat TooMuchKapuException-t dob.
 	 *
 	 */
 	@Override
@@ -69,7 +74,7 @@ public class SpecialisHely extends Sin{
 	}
 	
 	/**
-	visszaadja van-e kész alagút a speciális helyen
+	visszaadja van-e kÃ©sz alagÃºt a speciÃ¡lis helyen
 	* 
 	* @return true, ha van false, ha nincs
 	**/
@@ -84,18 +89,18 @@ public class SpecialisHely extends Sin{
 	
 
 	/**
-	visszaadja a bejárati kaput a speciális helyen
+	visszaadja a bejÃ¡rati kaput a speciÃ¡lis helyen
 	* 
-	* @return a rajta lévõ kapu (null ha nincs)
+	* @return a rajta lÃ©vÅ‘ kapu (null ha nincs)
 	**/
 	public Kapu kapu(){
 		return kapum;
 	}
 	
 	/**
-	Kaput rak a speciális helyre
+	Kaput rak a speciÃ¡lis helyre
 	* 
-	* @param a rá rakandó kapu referenciája
+	* @param a rÃ¡ rakandÃ³ kapu referenciÃ¡ja
 	**/	
 	public void ad(Kapu kapum){
 		this.kapum=kapum;
@@ -103,19 +108,20 @@ public class SpecialisHely extends Sin{
 	
 	@Override
 	/**
-	*Visszadja a hová lépjen a mozdony a Speciális helyról
-	*ha van rajta alagút akkor elozo-bõl jövõ vonat megy bele, kovetkezõ-bõl jövõ csak átmegy
-	*Ha alagútból jön akkor elozo, fele megy
-	*Ha nincs rajta alagút úgy mûködik, mint a sima Sin
+	*Visszadja a hovÃ¡ lÃ©pjen a mozdony a SpeciÃ¡lis helyrÃ³l
+	*ha van rajta alagÃºt akkor elozo-bÅ‘l jÃ¶vÅ‘ vonat megy bele, kovetkezÅ‘-bÅ‘l jÃ¶vÅ‘ csak Ã¡tmegy
+	*Ha alagÃºtbÃ³l jÃ¶n akkor elozo, fele megy
+	*Ha nincs rajta alagÃºt Ãºgy mÅ±kÃ¶dik, mint a sima Sin
 	*
-	*@param elozo megmondja honnan jött a mozdony
+	*@param elozo megmondja honnan jÃ¶tt a mozdony
 	**/
-	public Sin kovetkezo(Sin elozo){
-			
+	public Sin kovetkezo(Sin elozo) throws EndGameException{
+
 		if (elozo.equals(this.elozo)){
 			if(vankapu()){
 				kocsi.alagutAllapot(true);
 				kapum.belep(kocsi);
+				leptem=true;
 				return kapum.kapu().hely();
 			}
 			else{
@@ -130,13 +136,16 @@ public class SpecialisHely extends Sin{
 		}
 	}
 	/**
-	 * léptetjük a kapunkat
+	 * lÃ©ptetjÃ¼k a kapunkat
 	 *
 	 */
 	@Override
 	public void lep() throws EndGameException{
-		if(kapum!=null){
+		if(kapum!=null && leptem==false){
 			kapum.lep();
+		}
+		else if(kapum!=null){
+			leptem=false;
 		}
 		
 	}
