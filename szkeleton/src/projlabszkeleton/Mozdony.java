@@ -16,19 +16,18 @@ public class Mozdony extends Kocsi{
 	ezzel az információval lekérdezi a sín elemét, hogy mi a kovetkező elem. ezt a felhasználó mondja meg.
 	Mald lépteti a kocsiját és magát. (őt nem érdekli mien Sínelemet kap)
 	**/
-	@Override
 	public void lep() throws EndGameException{
 		if(!alagutAllapot){
 			Sin sin3 = sin.kovetkezo(mogotte.sinem());
 			sin.ad((Kocsi)null);		//felszabadítja az adott sín elemet (ha nincs a mozdony mögé kocsi kötve a sín szabaddá válik)
-			if(mogotte != null){
-				mogotte.kocsilepj(sin);		//lépteti a mogotte lévő kocsit a saját helyére
+			if(mogotte != null && sin3 != null){		//módosítás && sin3 != null
+					mogotte.kocsilepj(sin);		//lépteti a mogotte lévő kocsit a saját helyére
 			}
-			
-			ad(sin3);
+			if(sin3 != null)
+				ad(sin3);
 
-			if(!alagutAllapot){
-				sin3.ad((Kocsi)this);
+			if(!alagutAllapot && sin3 != null){				//módosítás && sin3 != null
+				sin3.ad(this);
 			}
 		}
 	}
