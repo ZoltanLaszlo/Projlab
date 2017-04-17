@@ -8,17 +8,17 @@ public class Kapu implements Elem{
 	private SpecialisHely helyem;
 	
 	/**
-	 * konstruktor belepokocsik addig nincsenek amíg be nem allitjak a kaput
+	 * konstruktor belepokocsik addig nincsenek amÃ­g be nem allitjak a kaput
 	 */	
 	public Kapu(){
 		belepokocsik=null;
 	}
 	
 	/**
-	 * ha létrejön az alagút (azaz van két kapu)
-	 * akkor létre kell hozni a hosszal megegyezõ méretû tárolót
+	 * ha lÃ©trejÃ¶n az alagÃºt (azaz van kÃ©t kapu)
+	 * akkor lÃ©tre kell hozni a hosszal megegyezÅ‘ mÃ©retÅ± tÃ¡rolÃ³t
 	 * 
-	 * @param hossz Az alagút hossza
+	 * @param hossz Az alagÃºt hossza
 	 */	
 	public void Kapubeallitas(int hossz){
 		this.hossz=hossz;
@@ -26,9 +26,9 @@ public class Kapu implements Elem{
 	}
 	
 	/**
-	 *Visszaadja van-e még kocsi az alagútban
+	 *Visszaadja van-e mÃ©g kocsi az alagÃºtban
 	 *
-	 *@return true ha már nincs kocsi azaz üres false, ha még van 
+	 *@return true ha mÃ¡r nincs kocsi azaz Ã¼res false, ha mÃ©g van 
 	 */		
 	public boolean ures(){
 		for (int i=0; i<belepokocsik.length; i++){
@@ -38,31 +38,31 @@ public class Kapu implements Elem{
 	}
 	
 	/**
-	 *Léptetjük az alagútban lévõ vonatokat, 
-	 *gondoskodunk arról, hogy az alagútból kilógó részeket is mozgassuk
+	 *LÃ©ptetjÃ¼k az alagÃºtban lÃ©vÅ‘ vonatokat, 
+	 *gondoskodunk arrÃ³l, hogy az alagÃºtbÃ³l kilÃ³gÃ³ rÃ©szeket is mozgassuk
 	 *
 	 */	
 	@Override
 	public void lep() throws EndGameException{
 		if(!ures()){
-			if(belepokocsik[0]!=null){ //ha az alagút elején egy kocsi áll
-				if(belepokocsik[0].mogotte!=null){  //ha ez a kocsi nem az utolsó, hanem van még utána kocsi
-					belepokocsik[0].mogotte.alagutAllapot(true); //beléptetjuk azt a kocsit az alagútba
-					belepokocsik[0].mogotte.sinem().ad((Kocsi)null); //a kocsi korábbi helyét felsazbadítjuk
-					if(belepokocsik[0].mogotte.mogotte != null){	//ha van még a kocsi mögött több kocsi akkor azt ráléptetjük az elõbb felszabadított speciális helyre
+			if(belepokocsik[0]!=null){ //ha az alagÃºt elejÃ©n egy kocsi Ã¡ll
+				if(belepokocsik[0].mogotte!=null){  //ha ez a kocsi nem az utolsÃ³, hanem van mÃ©g utÃ¡na kocsi
+					belepokocsik[0].mogotte.alagutAllapot(true); //belÃ©ptetjuk azt a kocsit az alagÃºtba
+					belepokocsik[0].mogotte.sinem().ad((Kocsi)null); //a kocsi korÃ¡bbi helyÃ©t felsazbadÃ­tjuk
+					if(belepokocsik[0].mogotte.mogotte != null){	//ha van mÃ©g a kocsi mÃ¶gÃ¶tt tÃ¶bb kocsi akkor azt rÃ¡lÃ©ptetjÃ¼k az elÅ‘bb felszabadÃ­tott speciÃ¡lis helyre
 						belepokocsik[0].mogotte.mogotte.kocsilepj(belepokocsik[0].mogotte.sinem());
 					}
 				}
-				belep(belepokocsik[0].mogotte); //léptetjuk az alagútban lévõ kocsikat, úgy hogy megadjuk az elejére kerülõ kocsit
+				belep(belepokocsik[0].mogotte); //lÃ©ptetjuk az alagÃºtban lÃ©vÅ‘ kocsikat, Ãºgy hogy megadjuk az elejÃ©re kerÃ¼lÅ‘ kocsit
 			}
 			else{
-				belep(null); //léptetjuk az alagútban lévõ kocsikat, úgy, hogy az elejére nem kerül Kocsi
+				belep(null); //lÃ©ptetjuk az alagÃºtban lÃ©vÅ‘ kocsikat, Ãºgy, hogy az elejÃ©re nem kerÃ¼l Kocsi
 			}
 		}
 	}
 	
 	/**
-	 *a kötelezõ implementálás végett, nem csinál semmit
+	 *a kÃ¶telezÅ‘ implementÃ¡lÃ¡s vÃ©gett, nem csinÃ¡l semmit
 	 *
 	 */	
 	@Override
@@ -72,36 +72,36 @@ public class Kapu implements Elem{
 	}
 	
 	/**
-	 *A kapu helyét adja vissza
+	 *A kapu helyÃ©t adja vissza
 	 *
-	 *@return a kap Speciális helye
+	 *@return a kap SpeciÃ¡lis helye
 	 */	
 	public SpecialisHely hely() {
 		return helyem;
 	}
 
 	/**
-	 *visszaadja az alagút másik kaupuját
+	 *visszaadja az alagÃºt mÃ¡sik kaupujÃ¡t
 	 *
-	 *@return az alagút másik kapuja
+	 *@return az alagÃºt mÃ¡sik kapuja
 	 */	
 	public Kapu kapu(){
 		return masikkapu;
 	}
 	
 	/**
-	 *Hozzárendeli a speciális helyét
+	 *HozzÃ¡rendeli a speciÃ¡lis helyÃ©t
 	 *
-	 *@param helyem Az õt tartalmazó speciális hely
+	 *@param helyem Az Å‘t tartalmazÃ³ speciÃ¡lis hely
 	 */	
 	public void ad(SpecialisHely helyem){
 		this.helyem=helyem;
 	}
 	
 	/**
-	 *Hozzárendeli az alagút másik kapu-ját
+	 *HozzÃ¡rendeli az alagÃºt mÃ¡sik kapu-jÃ¡t
 	 *
-	 *@param masikkapu au alagút másik Kapu-ja
+	 *@param masikkapu au alagÃºt mÃ¡sik Kapu-ja
 	 */	
 	public void ad(Kapu masikkapu){
 		this.masikkapu=masikkapu;
@@ -109,16 +109,18 @@ public class Kapu implements Elem{
 	
 	
 	/**
-	 *a lep() vagy a speciális hely kovetkezo() fv-hívja meg
-	 *lépteti az alagútban lévõ kocsikat
-	 *,aki a végén van azt kiveszi az alagútállapotból
-	 *a paraméterként kapott Kocsit pedig berakja az alagút elejére
+	 *a lep() vagy a speciÃ¡lis hely kovetkezo() fv-hÃ­vja meg
+	 *lÃ©pteti az alagÃºtban lÃ©vÅ‘ kocsikat
+	 *,aki a vÃ©gÃ©n van azt kiveszi az alagÃºtÃ¡llapotbÃ³l
+	 *a paramÃ©terkÃ©nt kapott Kocsit pedig berakja az alagÃºt elejÃ©re
 	 *
-	 *@param k a lépés során az alagút elejére kerülõ Kocsi
+	 *@param k a lÃ©pÃ©s sorÃ¡n az alagÃºt elejÃ©re kerÃ¼lÅ‘ Kocsi
 	 */	
-	public void belep(Kocsi k){
+	public void belep(Kocsi k) throws EndGameException{
 		if(belepokocsik[belepokocsik.length-1]!=null){
 			belepokocsik[belepokocsik.length-1].alagutAllapot(false);
+			this.masikkapu.helyem.ad(belepokocsik[belepokocsik.length-1]);
+			belepokocsik[belepokocsik.length-1].ad(this.masikkapu.helyem);
 		}
 		for(int i=belepokocsik.length-1; i>0;i--){
 			belepokocsik[i]=belepokocsik[i-1];
@@ -127,3 +129,4 @@ public class Kapu implements Elem{
 	}
 
 }
+
