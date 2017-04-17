@@ -4,14 +4,14 @@ import java.awt.*;
 
 public class Megallo extends Sin{
 	private Color szin;
-	private int utasokszama;
+	protected int utasokszama;
 	
 	/**
-	 * Konstruktor ami egy id-vel l·tja el a sint, hogy tudjuk kezelni
+	 * Konstruktor ami egy id-vel l√°tja el a sint, hogy tudjuk kezelni
 	 *
 	 * @param  nev  A nev amit adni akarunk a sinnek
-	 * @param  szin  A meg·llÛ szÌne
-	 * @param  utasokszama a meg·llÛn ·llÛ utasok sz·ma
+	 * @param  szin  A meg√°ll√≥ sz√≠ne
+	 * @param  utasokszama a meg√°ll√≥n √°ll√≥ utasok sz√°ma
 	 */
 	public Megallo(String nev, Color szin, int utasokszama){
 		super(nev);
@@ -20,37 +20,40 @@ public class Megallo extends Sin{
 	}
 	
 	/**
-	 * Amikor r·lÈp a kocsi, ellenırzi, hogy megegyeznek-e a szinek
-	 * ha igen akkor kezdemÈnyezi a lesz·ll·st a kocsin·l
-	 * Persze az ¸tkˆzÈst neki is ellenırizni kell
+	 * Amikor r√°l√©p a kocsi, ellen≈ërzi, hogy megegyeznek-e a szinek
+	 * ha igen akkor kezdem√©nyezi a lesz√°ll√°st a kocsin√°l
+	 * Persze az √ºtk√∂z√©st neki is ellen≈ërizni kell
 	 *
-	 * @param  k  A kocsi referenci·ja amelyik r·lÈp
+	 * @param  k  A kocsi referenci√°ja amelyik r√°l√©p
 	 */	
 	@Override
 	public void ad(Kocsi k) throws EndGameException{
 		if(kocsi!=null && k!=null){
 			throw new EndGameException(false);
 		}
-		else {
+		else if(k != null){	//m√≥dos√≠t√°s szimpla else-r≈ël
 			kocsi=k;
 			if(kocsi.szin().equals(this.szin)){
 				if(kocsi.ures()){
 					if(utasokszama!=0){
 						kocsi.setUtasokSzama(utasokszama);
+						this.utasokszama-=kocsi.utasokSzama;
 					}
 				}
 				else{
-					kocsi.leszallas();
+					kocsi.leszallas(this);
 				}
 			}
-		}
+		}else		//addition
+			kocsi = k;
 	}
+	
 	/**
-	 * Be·llÌthatÛ h·nyan legyenek a meg·llÛban
+	 * Be√°ll√≠that√≥ h√°nyan legyenek a meg√°ll√≥ban
 	 *
-	 * @param utasok A be·llÌtandÛ utasok sz·ma
+	 * @param utasok A be√°ll√≠tand√≥ utasok sz√°ma
 	 */	
 	public void setUtasokszama(int utasok){
-	this.utasokszama=utasok;	
+	this.utasokszama+=utasok;	
 	}
 }
