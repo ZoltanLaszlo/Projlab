@@ -12,31 +12,31 @@ public class Mozdony extends Kocsi{
 	}
 	
 	/**
-	A mozdony felel a onat léptetéséért az elõzõ kocsi alapján megtudja ol állt az elõzõ lépésben, majd 
-	ezzel az információval lekérdezi a sín elemét, hogy mi a kovetkezõ elem. ezt a felhasználó mondja meg.
-	Mald lépteti a kocsiját és magát. (õt nem érdekli mien Sínelemet kap)
+	A mozdony felel a onat lÃ©ptetÃ©sÃ©Ã©rt az elÅ‘zÅ‘ kocsi alapjÃ¡n megtudja ol Ã¡llt az elÅ‘zÅ‘ lÃ©pÃ©sben, majd 
+	ezzel az informÃ¡ciÃ³val lekÃ©rdezi a sÃ­n elemÃ©t, hogy mi a kovetkezÅ‘ elem. ezt a felhasznÃ¡lÃ³ mondja meg.
+	Mald lÃ©pteti a kocsijÃ¡t Ã©s magÃ¡t. (Å‘t nem Ã©rdekli mien SÃ­nelemet kap)
 	**/
 	@Override
 	public void lep() throws EndGameException{
 		if(!alagutAllapot){
-			sin.ad((Kocsi)null);		//felszabadítja az adott sín elemet (ha nincs a mozdony mögé kocsi kötve a sín szabaddá válik)
 			Sin sin3 = sin.kovetkezo(mogotte.sinem());
+			sin.ad((Kocsi)null);		//felszabadÃ­tja az adott sÃ­n elemet (ha nincs a mozdony mÃ¶gÃ© kocsi kÃ¶tve a sÃ­n szabaddÃ¡ vÃ¡lik)
 			if(mogotte != null){
-				mogotte.kocsilepj(sin);		//lépteti a mogotte lévõ kocsit a saját helyére
+				mogotte.kocsilepj(sin);		//lÃ©pteti a mogotte lÃ©vÅ‘ kocsit a sajÃ¡t helyÃ©re
 			}
 			
 			ad(sin3);
 
 			if(!alagutAllapot){
-				sin3.ad(this);
+				sin3.ad((Kocsi)this);
 			}
 		}
 	}
 	
 	/**
-	 * Megmondja, hogy üres-e az adott vonat, azaz a mozdonyhoz kötött összes kocsi
+	 * Megmondja, hogy Ã¼res-e az adott vonat, azaz a mozdonyhoz kÃ¶tÃ¶tt Ã¶sszes kocsi
 	 * 
-	 * @return true, ha az adott mozdonyhoz kötött összes kocsi üres
+	 * @return true, ha az adott mozdonyhoz kÃ¶tÃ¶tt Ã¶sszes kocsi Ã¼res
 	 */
 	public boolean osszesUres(){
 		Kocsi next = mogotte;
@@ -50,7 +50,7 @@ public class Mozdony extends Kocsi{
 	}
 	
 	/**
-	 * Hozzáköt egy kocsit a mozdony végéhez.
+	 * HozzÃ¡kÃ¶t egy kocsit a mozdony vÃ©gÃ©hez.
 	 */
 	@Override
 	public void ad(Kocsi kocsi){
