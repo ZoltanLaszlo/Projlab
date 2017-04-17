@@ -1,10 +1,15 @@
 package projlabszkeleton;
 
-import java.awt.Color;
+import java.lang.reflect.InvocationTargetException;
+import java.text.ParseException;
+import java.util.HashMap;
+import java.util.Scanner;
 
 public class Program {
 
 	public static void main(String[] args) {
+
+		/*
 		Palya P1=new Palya();
 		Mozdony m1=new Mozdony(Color.black, "m1");
 		Kocsi k1= new Kocsi(1, Color.black, "k1");
@@ -48,5 +53,38 @@ public class Program {
 		System.out.println("m1 "+m1.sinem().id+" "+m1.utasokSzama);
 		System.out.println("k1 "+k1.sinem().id+" "+k1.utasokSzama);
 		System.out.println("k2 "+k2.sinem().id+" "+k2.utasokSzama);
+		*/
+
+		TestParser tp = new TestParser("projlabszkeleton");
+
+		Scanner sc = new Scanner(System.in);
+		String command;
+		do {
+			command = sc.nextLine();
+			if (!command.equals("exit"))
+				try {
+					tp.parseCommand(command);
+				} catch (ParseException e) {
+					e.printStackTrace();
+				} catch (IllegalAccessException e) {
+					e.printStackTrace();
+				} catch (ClassNotFoundException e) {
+					e.printStackTrace();
+				} catch (InstantiationException e) {
+					e.printStackTrace();
+				} catch (NoSuchMethodException e) {
+					e.printStackTrace();
+				} catch (InvocationTargetException e) {
+					e.printStackTrace();
+				}
+		} while (!command.equals("exit") && sc.hasNext());
+		System.out.println();
+		HashMap<String, Object> objects = tp.getObjects();
+		for (Object o : objects.values()) {
+			if (o.getClass().equals(Kocsi.class) || o.getClass().equals(Mozdony.class)) {
+				Kocsi kocsi = (Kocsi) o;
+				System.out.println(kocsi.getKocsibyID() + " " + kocsi.sinem().id + " " + kocsi.getUtasokSzama());
+			}
+		}
 	}
 }
