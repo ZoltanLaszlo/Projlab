@@ -7,7 +7,7 @@ public class Sin implements Elem{
 	public String id;
 
 	/**
-	 * Konstruktor ami egy id-vel látja el a sint, hogy tudjuk kezelni
+	 * Konstruktor ami egy id-vel lÃ¡tja el a sint, hogy tudjuk kezelni
 	 *
 	 * @param  nev  A nev amit adni akarunk a sinnek
 	 */
@@ -16,10 +16,10 @@ public class Sin implements Elem{
 	}
 	
 	/**
-	 * Hozzáadja a sínhez a szomszédait,
-	 * Elsõ hívásra az elozo nevu attributumába rakja
-	 * Második hívásra a kovetkezo nevûbe rakja
-	 * Minden további hívásra nem csinál semmit
+	 * HozzÃ¡adja a sÃ­nhez a szomszÃ©dait,
+	 * ElsÅ‘ hÃ­vÃ¡sra az elozo nevu attributumÃ¡ba rakja
+	 * MÃ¡sodik hÃ­vÃ¡sra a kovetkezo nevÅ±be rakja
+	 * Minden tovÃ¡bbi hÃ­vÃ¡sra nem csinÃ¡l semmit
 	 *
 	 * @param  s  A sin referencia amit be akarunk rakni
 	 */
@@ -31,16 +31,16 @@ public class Sin implements Elem{
 			kovetkezo=s;
 		}
 		else {
-			// ha tobbet akarunk hozzáadni nem csinálunk semmit
+			// ha tobbet akarunk hozzÃ¡adni nem csinÃ¡lunk semmit
 		}
 	}
 	
 	/**
-	 * Hozzáadja a sínhez a Kocsit, ami rálép,
-	 * ha mar van kocsi a sinen kivételt dob
+	 * HozzÃ¡adja a sÃ­nhez a Kocsit, ami rÃ¡lÃ©p,
+	 * ha mar van kocsi a sinen kivÃ©telt dob
 	 *
 	 * @param  k  A Kocsi referencia amit a Sinre akarunk rakni
-	 * @throws EndGameException Ha ütközés történt
+	 * @throws EndGameException Ha Ã¼tkÃ¶zÃ©s tÃ¶rtÃ©nt
 	 */
 	public void ad(Kocsi k) throws EndGameException{
 		if(kocsi!=null && k!=null){
@@ -52,12 +52,12 @@ public class Sin implements Elem{
 	}
 	
 	/**
-	 * Visszaadja a kocsi elõzõ Sinje alapján, hogy hová kell lépnie
+	 * Visszaadja a kocsi elÅ‘zÅ‘ Sinje alapjÃ¡n, hogy hovÃ¡ kell lÃ©pnie
 	 *
-	 * @param  elozo  A rajta lévõ mozdony elõzõ Sin-je
-	 * @return A kovetkezõ Sin elem referenciáját adja vissza
+	 * @param  elozo  A rajta lÃ©vÅ‘ mozdony elÅ‘zÅ‘ Sin-je
+	 * @return A kovetkezÅ‘ Sin elem referenciÃ¡jÃ¡t adja vissza
 	 */
-	public Sin kovetkezo(Sin elozo){
+	public Sin kovetkezo(Sin elozo) throws EndGameException{
 		if (elozo.equals(this.elozo)){
 			return kovetkezo;
 		}
@@ -70,8 +70,8 @@ public class Sin implements Elem{
 	}
 
 	/**
-	 * Mivel implementálja az Elem interfészt, meg kell valósítania
-	 *a lep() fv-t, de mivel nem csinál semmit egyszerûen üresen hagyjuk
+	 * Mivel implementÃ¡lja az Elem interfÃ©szt, meg kell valÃ³sÃ­tania
+	 *a lep() fv-t, de mivel nem csinÃ¡l semmit egyszerÅ±en Ã¼resen hagyjuk
 	 *
 	 */
 	@Override
@@ -81,10 +81,10 @@ public class Sin implements Elem{
 	}
 
 	/**
-	 * Mivel implementálja az Elem interfészt, meg kell valósítania
-	 *az akcio() fv-t, de mivel nem csinál semmit egyszerûen üresen hagyjuk
+	 * Mivel implementÃ¡lja az Elem interfÃ©szt, meg kell valÃ³sÃ­tania
+	 *az akcio() fv-t, de mivel nem csinÃ¡l semmit egyszerÅ±en Ã¼resen hagyjuk
 	 *
-	 *@return null /mert nem csinál semmit
+	 *@return null /mert nem csinÃ¡l semmit
 	 */
 	@Override
 	public Boolean akcio() throws TooManyKapuException {
@@ -93,3 +93,4 @@ public class Sin implements Elem{
 	}
 
 }
+
