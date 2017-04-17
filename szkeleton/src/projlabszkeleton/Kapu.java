@@ -31,8 +31,11 @@ public class Kapu implements Elem{
 	 *@return true ha már nincs kocsi azaz üres false, ha még van 
 	 */		
 	public boolean ures(){
-		for (int i=0; i<belepokocsik.length; i++){
-			if(belepokocsik[i]!=null) return false;
+		if(belepokocsik != null){	//addition
+			for (int i=0; i<belepokocsik.length; i++){
+				if(belepokocsik[i]!=null)
+					return false;
+			}
 		}
 		return true;
 	}
