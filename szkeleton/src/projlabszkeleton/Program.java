@@ -86,5 +86,6 @@ public class Program {
 				System.out.println(kocsi.getKocsibyID() + " " + kocsi.sinem().id + " " + kocsi.getUtasokSzama());
 			}
 		}
+		sc.close();
 	}
 }

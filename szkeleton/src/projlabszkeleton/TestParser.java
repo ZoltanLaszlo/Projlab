@@ -73,7 +73,7 @@ public class TestParser {
 
     private void createTestObject(String name, String type) throws IllegalAccessException, InstantiationException, ClassNotFoundException {
 
-        Class objectType = Class.forName(classPath+"."+type);
+        Class<?> objectType = Class.forName(classPath+"."+type);
         if (objectType == null)
             throw new ClassNotFoundException();
         objects.put(name, objectType.newInstance());
@@ -81,7 +81,7 @@ public class TestParser {
 
     private void createTestObject(String name, String type, String[] params) throws IllegalAccessException, InstantiationException, ClassNotFoundException, NoSuchMethodException, InvocationTargetException {
 
-        Class objectType = Class.forName(classPath+"."+type);
+        Class<?> objectType = Class.forName(classPath+"."+type);
         if (objectType == null)
             throw new ClassNotFoundException();
         if (params.length == 1) {
@@ -101,7 +101,9 @@ public class TestParser {
         if (param != null) {
             Object parameterObject = objects.get(param);
             if (parameterObject != null) {
-                Method method = object.getClass().getMethod(methodName, parameterObject.getClass());
+                Method method = getMethod(object, methodName, parameterObject.getClass());
+                if (method == null)
+                	throw new NoSuchMethodException(methodName);
                 method.invoke(object, parameterObject);
             } else {
                 Method method = getBestMatchingMethod(object, methodName, getPossibleTypes(param));
@@ -114,6 +116,20 @@ public class TestParser {
             method.invoke(object);
         }
 
+    }
+    
+    private Method getMethod(Object o, String methodName, Class<?> parameterClass) {
+    	if (parameterClass == null)
+    		return null;
+    	Method method = null;
+    	
+    	try {
+			method = o.getClass().getMethod(methodName, parameterClass);
+		} catch (NoSuchMethodException e) {
+			method = getMethod(o, methodName, parameterClass.getSuperclass());
+		}
+    	
+    	return method;
     }
 
     /**
@@ -129,18 +145,12 @@ public class TestParser {
      * @throws NoSuchMethodException
      * If the method is not exist.
      */
-    private Method getBestMatchingMethod(Object o, String methodName, Class[] parameterClasses) throws NoSuchMethodException {
+    private Method getBestMatchingMethod(Object o, String methodName, Class<?>[] parameterClasses) throws NoSuchMethodException {
         Method method = null;
-        boolean hasMatch;
 
-        for (Class c : parameterClasses) {
-            hasMatch = true;
-            try {
-                method = o.getClass().getMethod(methodName, c);
-            } catch (NoSuchMethodException e) {
-                hasMatch = false;
-            }
-            if (hasMatch)
+        for (Class<?> c : parameterClasses) {
+            method = getMethod(o, methodName, c);
+            if (method != null)
                 break;
         }
         if (method == null)
@@ -148,11 +158,11 @@ public class TestParser {
         return method;
     }
 
-    private Object construct(Class objectClass, String param, Class[] parameterClasses) throws NoSuchMethodException, IllegalAccessException, InvocationTargetException, InstantiationException {
-        Constructor ctor = null;
+    private Object construct(Class<?> objectClass, String param, Class<?>[] parameterClasses) throws NoSuchMethodException, IllegalAccessException, InvocationTargetException, InstantiationException {
+        Constructor<?> ctor = null;
         boolean hasMatch;
 
-        for (Class c : parameterClasses) {
+        for (Class<?> c : parameterClasses) {
             hasMatch = true;
             try {
                 ctor = objectClass.getConstructor(c);
@@ -168,13 +178,13 @@ public class TestParser {
         return null;
     }
 
-    private Object construct(Class objectClass, String param1, Class[] parameterClasses1,
-                                                   String param2, Class[] parameterClasses2) throws NoSuchMethodException, IllegalAccessException, InvocationTargetException, InstantiationException {
-        Constructor ctor = null;
+    private Object construct(Class<?> objectClass, String param1, Class<?>[] parameterClasses1,
+                                                   String param2, Class<?>[] parameterClasses2) throws NoSuchMethodException, IllegalAccessException, InvocationTargetException, InstantiationException {
+        Constructor<?> ctor = null;
         boolean hasMatch;
 
-        for (Class c1 : parameterClasses1) {
-            for (Class c2 : parameterClasses2) {
+        for (Class<?> c1 : parameterClasses1) {
+            for (Class<?> c2 : parameterClasses2) {
                 hasMatch = true;
                 try {
                     ctor = objectClass.getConstructor(c1, c2);
@@ -191,14 +201,14 @@ public class TestParser {
         return null;
     }
 
-    private Object construct(Class objectClass, String param1, Class[] parameterClasses1,
-                             String param2, Class[] parameterClasses2, String param3, Class[] parameterClasses3) throws NoSuchMethodException, IllegalAccessException, InvocationTargetException, InstantiationException {
-        Constructor ctor = null;
+    private Object construct(Class<?> objectClass, String param1, Class<?>[] parameterClasses1,
+                             String param2, Class<?>[] parameterClasses2, String param3, Class<?>[] parameterClasses3) throws NoSuchMethodException, IllegalAccessException, InvocationTargetException, InstantiationException {
+        Constructor<?> ctor = null;
         boolean hasMatch;
 
-        for (Class c1 : parameterClasses1) {
-            for (Class c2 : parameterClasses2) {
-                for (Class c3 : parameterClasses3) {
+        for (Class<?> c1 : parameterClasses1) {
+            for (Class<?> c2 : parameterClasses2) {
+                for (Class<?> c3 : parameterClasses3) {
                     hasMatch = true;
                     try {
                         ctor = objectClass.getConstructor(c1, c2, c3);
@@ -223,7 +233,7 @@ public class TestParser {
      * @return
      * The possible types.
      */
-    private Class[] getPossibleTypes(String str) {
+    private Class<?>[] getPossibleTypes(String str) {
         // long, integer or short value
         if (str.matches("\\d+")) {
             Long value = Long.parseLong(str);
@@ -264,7 +274,7 @@ public class TestParser {
             return new Class[] {String.class};
     }
 
-    private Object getValue(String param, Class type) {
+    private Object getValue(String param, Class<?> type) {
         if (type.equals(long.class) || type.equals(Long.class) || type.equals(int.class) ||
                 type.equals(Integer.class) || type.equals(short.class) || type.equals(Short.class)) {
 
