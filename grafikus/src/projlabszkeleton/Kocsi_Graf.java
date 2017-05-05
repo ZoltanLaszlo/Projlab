@@ -59,19 +59,42 @@ public class Kocsi_Graf {
 			mozdony_kanyar = ImageIO.read(new File("projekt/mozdony_red_kanyar.png"));
 		}
 		catch (IOException e){
-			System.out.println("f·jl beolvas·s sikertelen (kocsi.png)");
+			System.out.println("f√°jl beolvas√°s sikertelen (kocsi.png)");
 			e.printStackTrace();
 		}
 	}
 	
 	public Graphics2D draw(Graphics2D g, Kocsi k, String allapot){
+		if (k instanceof Mozdony && (allapot == "FL" || allapot == "BJ")){
+			g.drawImage(mozdony, null, 0, 0);
+		}
+		else if(k instanceof Mozdony && (allapot == "BF" || allapot == "FJ" || allapot == "JL" || allapot == "LB")){
+			g.rotate(Math.PI, 25, 25);
+			g.drawImage(mozdony_kanyar, null, 0, 0);
+			g.rotate(-Math.PI, 25, 25);
+		}
+		else if(k instanceof Mozdony){
+			g.drawImage(mozdony, null, 0, 0);
+		}
+		else if(k instanceof Kocsi && (allapot == "FL" || allapot == "BJ")){
+			g.drawImage(kopiros, null, 0, 0);
+		}
+		else if(k instanceof Kocsi && (allapot == "BF" || allapot == "FJ" || allapot == "JL" || allapot == "LB")){
+			g.rotate(Math.PI, 25, 25);
+			g.drawImage(kopiros_kanyar, null, 0, 0);
+			g.rotate(-Math.PI, 25, 25);
+		}
+		else if(k instanceof Kocsi){
+			g.drawImage(kopiros, null, 0, 0);
+		}
+		/*
 		if (k instanceof Mozdony){
 			g.drawImage(mozdony, null, 0, 0);
 		}
 		else{
 			g.drawImage(kopiros, null, 0, 0);
 		}
-		
+		*/
 		return g;
 	}
 }
