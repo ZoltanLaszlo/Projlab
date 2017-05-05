@@ -29,19 +29,33 @@ public class Ablak extends JFrame {
 	private JPanel also=new JPanel();
 	private JPanel felso=new JPanel();
 	
-	
+	Palya_Rajzolo uj;
+	Palya p;
+	Timer t = new Timer(1000, new ActionListener() {			//a l√©ptet√©shez
+		
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			try{
+				p.leptetes();
+				uj.repaint();
+			}catch(Exception ex){
+				//todo??
+			}
+		}
+	});
 	
 	private class startGamelistener implements ActionListener{
 		public void actionPerformed(ActionEvent e){
 			if(e.getActionCommand().equals("Start!")){
 				start();
+				t.start();
 			}
 		}
 	}
 	
 	public Ablak(){
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
-		setTitle("Vonat J·tÈk");
+		setTitle("Vonat J√°t√©k");
 		setSize(1000,700);
 		setResizable(false);
 		felso.add(start, FlowLayout.LEFT);
@@ -54,7 +68,7 @@ public class Ablak extends JFrame {
 		myPicture = ImageIO.read(new File("projekt/trainstart.jpg"));
 		}
 		catch (IOException e){
-			System.out.println("f·jl beolvas·s sikertelen");
+			System.out.println("f√°jl beolvas√°s sikertelen");
 		}
 		JLabel picLabel = new JLabel(new ImageIcon(myPicture.getScaledInstance(1000, 630, Image.SCALE_FAST)));
 		also.add(picLabel, FlowLayout.LEFT);
@@ -67,8 +81,8 @@ public class Ablak extends JFrame {
 		//this.removeAll();
 		this.remove(also);
 		this.remove(felso);
-		Palya_Rajzolo uj=new Palya_Rajzolo();
-		Palya p=new Palya(uj);
+		uj=new Palya_Rajzolo();
+		p=new Palya(uj);
 		p.start();
 		uj.ready();
 		add(uj, BorderLayout.CENTER);
