@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<palyaelemek dimx="10" dimy="10">
+	<sinek>
+		<sin id="sin01" mogotte="sin02" x="1" y="1"/>
+		<sin id="sin02" elotte="sin01" mogotte="sin03" x="1" y="2"/>
+		<sin id="sin03" elotte="sin02" mogotte="sin04" x="1" y="3"/>
+		<sin id="sin04" elotte="sin03" mogotte="sin05" x="1" y="4"/>
+		<valto id="valto01" elotte="sin04" mogotte="sin05" sin3="sin06" x="1" y="5"/>
+		<sin id="sin05" elotte="valto01" mogotte="megallo01" x="1" y="6"/>
+		<sin id="sin06" elotte="valto01" x="2" y="5"/>		<!-- vagy y="6"? -->
+		<megallo id="megallo01" elotte="sin05" color="red" utasokszama="15" x="1" y="7"/>
+	</sinek>
+	
+	<kocsik>
+		<mozdony id="m01" mogotte="k01" sinem="sin03"/>		<!-- ennek kell szín? -->
+		<kocsi id="k01" elotte="m01" mogotte="k02" color="yellow" utasokszama="15" sinem="sin02"/>
+		<kocsi id="k02" elotte="k01" color="blue" utasokszama="20" sinem="sin01"/>
+	</kocsik>
+</palyaelemek>
