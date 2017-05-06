@@ -87,6 +87,12 @@ public class SpecialisHely extends Sin{
 		return false;
 	}
 	
+	public boolean vanSajatKapum() {
+		if (kapum != null) {
+			return true;
+		}
+		return false;
+	}
 
 	/**
 	visszaadja a bejárati kaput a speciális helyen
