@@ -116,6 +116,12 @@ public class Kocsi_Graf {
 			}
 		}
 		
+
+		if(k.sinem() instanceof Keresztezodes){
+			g=keresztrajzolas(g, kocsiEgyenes, k);
+			return g;
+		}
+		
 		if(allapot == "BF" || allapot == "FJ" || allapot == "JL" || allapot == "LB"){		//kanyarban vagyunk
 			g.rotate(Math.PI, 25, 25);
 			g.drawImage(kocsiKanyar, null, 0, 0);
@@ -131,14 +137,7 @@ public class Kocsi_Graf {
 		}
 		else{										//egyenesben vagyunk
 			g.drawImage(kocsiEgyenes, null, 0, 0);
-			if(kocsiColor.equals(Color.white) || kocsiColor.equals(Color.yellow)){
-				g.setColor(Color.black);
-				g.drawString("" + k.getUtasokSzama(), 22, 30);
-			}
-			else if(!(k instanceof Mozdony) && !(k instanceof TeherKocsi)){		//ha mozdony v teherkocsi, ne rajzoljuk ki az utasok számát
-				g.setColor(Color.white);
-				g.drawString("" + k.getUtasokSzama(), 22, 30);
-			}
+			g=utasrajzolas_egyenes(g, k);
 		}
 		/*
 		if (k instanceof Mozdony){
@@ -148,6 +147,41 @@ public class Kocsi_Graf {
 			g.drawImage(kopiros, null, 0, 0);
 		}
 		*/
+		return g;
+	}
+	private Graphics2D keresztrajzolas(Graphics2D g, BufferedImage kep, Kocsi k){
+		Keresztezodes ker=(Keresztezodes)k.sinem();
+		Sin vizsgalt=null;
+		if (k.getelotte()!=null){
+			vizsgalt=k.getelotte().sinem();
+		}
+		else {
+			vizsgalt=k.getmogotte().sinem();
+		}
+		if(vizsgalt.equals(ker.getsin3()) || vizsgalt.equals(ker.getsin4())){
+			g.rotate(Math.PI/2, 25, 25);
+			g.drawImage(kep, null, 0, 0);
+			g.rotate(-Math.PI/2, 25, 25);
+		}
+		else{
+			g.drawImage(kep, null, 0, 0);
+		}
+		g=utasrajzolas_egyenes(g, k);
+		return g;
+	}
+	
+
+	private Graphics2D utasrajzolas_egyenes(Graphics2D g, Kocsi k){
+		if((k instanceof Mozdony) || (k instanceof TeherKocsi)){		//ha mozdony v teherkocsi, ne rajzoljuk ki az utasok számát
+			return g;
+		}
+		if(k.szin().equals(Color.white) || k.szin().equals(Color.yellow)){
+			g.setColor(Color.black);
+		}
+		else {	
+			g.setColor(Color.white);
+		}
+		g.drawString("" + k.getUtasokSzama(), 22, 30);
 		return g;
 	}
 }
