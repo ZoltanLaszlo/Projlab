@@ -11,7 +11,7 @@ import javax.imageio.ImageIO;
 
 public class Megallo_Graf extends Sin_Graf{
 	/**
-	 * 
+	 * gg
 	 */
 	private static final long serialVersionUID = 1L;
 
@@ -27,6 +27,12 @@ public class Megallo_Graf extends Sin_Graf{
 	private static BufferedImage megfeher;
 	private static BufferedImage megsarga;
 	
+	/**
+	 *Konstruktor létrehoz egy grafikus Megallo elemet
+	 *
+	 *@param s A modellbeli párja
+	 *@param allapt megadja hogy áll a Megallo lehetséges: FL, BJ
+	 */
 	public Megallo_Graf(Megallo s, String allapot){
 		this.s=s;
 		this.allapot=allapot;
@@ -42,12 +48,20 @@ public class Megallo_Graf extends Sin_Graf{
 			megsarga = ImageIO.read(new File("projekt/megallo_yellow.png"));
 		}
 		catch (IOException e){
-			System.out.println("f�jl beolvas�s sikertelen (megallo.png)");
+			System.out.println("fájl beolvasás sikertelen (megallo.png)");
 		}
 		setSize(50, 50);
 		this.setBackground(Color.green);
 	}
 	
+	/**
+	 * a panel kirajzolásakor meghívott függvény
+	 * Az állapottol függően krajzoljuk a megfelelő képet
+	 * és kirajzoljuk az utasok számát
+	 * (és a rajta álló kocsikat is kirajzoltatjuk)
+	 * 
+	 * @param g grafikus elem amire rajzolhatunk
+	 */
 	@Override
 	protected void paintComponent(Graphics g){
 		//super.paintComponent(g);
