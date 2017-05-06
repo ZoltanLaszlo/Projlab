@@ -1,152 +1,83 @@
 package projlabszkeleton;
 
-public class SpecialisHely extends Sin{
-	private Kapu kapum;
-	private boolean leptem;
-	static private int kapukszama;
-	static private Kapu felkapu;
+import java.awt.Color;
+import java.awt.Graphics;
+import java.awt.Graphics2D;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
 
+import javax.imageio.ImageIO;
+
+public class SpecialisHely_Graf extends Sin_Graf{
 	/**
-	 * Konstruktor ami egy id-vel látja el a sint, hogy tudjuk kezelni
-	 *
-	 * @param  nev  A nev amit adni akarunk a sinnek
+	 * gg
 	 */
-	public SpecialisHely(String nev){
-		super(nev);
-		kapukszama=0;
-		felkapu=null;
-		leptem=false;
-		kapum=null;
-	}
+	private static final long serialVersionUID = 1L;
+
+	
+	private SpecialisHely s;
+	private static BufferedImage spechely;
+	private static BufferedImage kapu_noalagut;
+	private static BufferedImage alagut;
 	
 	/**
-	 * A Pálya osztály ezen keresztül jelzi, hogy a felhasználó akar valamit a speciális hellyel
-	 * Ha már van kapu rajta, akkor leveszi, és megszünteti az alagutat Persze csak akkor engedi, ha az üres
-	 * Ha még nincs attól függ mit csinál, hogy hány kapu van már a pályán
-	 * ha nulla akkor egyszerûen lerak egy kaput
-	 * ha egy akkor megcsinálja a csatlakozást a két kapu között
-	 * ha kettõ, akkor nem engedi, hogy lerakjunk egy újat TooMuchKapuException-t dob.
+	 *Konstruktor lÃ©trehoz egy grafikus SpecialisHely elemet
 	 *
+	 *@param s A modellbeli pÃ¡rja
+	 *@param allapt megadja hogy Ã¡ll a valto lehetsÃ©ges: BJ, JB, FL, LF
+	 */
+	public SpecialisHely_Graf(SpecialisHely s, String allapot){
+		this.s=s;
+		this.allapot=allapot;
+		try{
+			spechely = ImageIO.read(new File("projekt/spechely_nokapu.png"));
+			kapu_noalagut = ImageIO.read(new File("projekt/spechely_kapu_noalagut.png"));
+			alagut = ImageIO.read(new File("projekt/spechely_alagut.png"));
+		}
+		catch (IOException e){
+			System.out.println("fÃ¡jl beolvasÃ¡s sikertelen (spechely.png)");
+		}
+		setSize(50, 50);
+		this.setBackground(Color.green);
+	}
+
+	/**
+	 * a panel kirajzolÃ¡sakor meghÃ­vott fÃ¼ggvÃ©ny
+	 * Az Ã¡llapottol Ã©s rajta Ã¡llÃ³ kapu illetve alagÃºttÃ³l fÃ¼ggÅ‘en
+	 * kirajzoljuk a megfelelÅ‘ kÃ©pet
+	 * (Ã©s a rajta Ã¡llÃ³ kocsikat is kirajzoltatjuk)
+	 * 
+	 * @param g grafikus elem amire rajzolhatunk
 	 */
 	@Override
-	public Boolean akcio() throws TooManyKapuException{
-		if(kapum!=null){
-			if(kapum.kapu()!=null){
-				if (kapum.ures() && kapum.kapu().ures()){
-					kapum.kapu().ad((Kapu)null);
-					felkapu=kapum.kapu();
-					kapum=null;
-					kapukszama--;
-					return true;
-				}
-				else return false;
-			}
-			else{
-				kapum=null;
-				felkapu=null;
-				kapukszama--;
-				return true;
-			}
+	protected void paintComponent(Graphics g){
+		//super.paintComponent(g);
+		Graphics2D ujg=(Graphics2D)g;
+		if(allapot.equals("BJ")){
+			//ez az eredeti
+		}
+		if(allapot.equals("JB")){
+			ujg.rotate(Math.PI, 25, 25);
+		}
+		if(allapot.equals("FL")){
+			ujg.rotate(Math.PI/2, 25, 25);			
+		}
+		if(allapot.equals("LF")){
+			ujg.rotate(-Math.PI/2, 25, 25);			
+		}
+		if(s.vankapu()){
+			ujg.drawImage(alagut, null, 0, 0);
+		}
+		else if(s.kapu()!=null){
+			ujg.drawImage(kapu_noalagut, null, 0, 0);
 		}
 		else{
-			if(kapukszama==0){
-				kapum=new Kapu();
-				kapum.ad(this);
-				felkapu=kapum;
-				kapukszama=1;
-				return true;
-			}
-			else if(kapukszama==1){
-				kapum=new Kapu();
-				kapum.ad(this);
-				kapum.ad(felkapu);
-				kapum.Kapubeallitas(3);
-				felkapu.ad(kapum);
-				felkapu.Kapubeallitas(3);
-				kapukszama=2;
-				return true;
-			}
-			else {
-				throw new TooManyKapuException();
-			}
-			
+			ujg.drawImage(spechely, null, 0, 0);
 		}
-	}
-	
-	/**
-	visszaadja van-e kész alagút a speciális helyen
-	* 
-	* @return true, ha van false, ha nincs
-	**/
-	public boolean vankapu(){
-		if(kapum!=null){
-			if(kapum.kapu()!=null){
-				return true;
-			}
+		if(s.kocsi!=null){
+			ujg=kocsirajzolo.draw(ujg, s.kocsi, this.allapot);
 		}
-		return false;
-	}
-	
-
-	/**
-	visszaadja a bejárati kaput a speciális helyen
-	* 
-	* @return a rajta lévõ kapu (null ha nincs)
-	**/
-	public Kapu kapu(){
-		return kapum;
-	}
-	
-	/**
-	Kaput rak a speciális helyre
-	* 
-	* @param a rá rakandó kapu referenciája
-	**/	
-	public void ad(Kapu kapum){
-		this.kapum=kapum;
-	}
-	
-	@Override
-	/**
-	*Visszadja a hová lépjen a mozdony a Speciális helyról
-	*ha van rajta alagút akkor elozo-bõl jövõ vonat megy bele, kovetkezõ-bõl jövõ csak átmegy
-	*Ha alagútból jön akkor elozo, fele megy
-	*Ha nincs rajta alagút úgy mûködik, mint a sima Sin
-	*
-	*@param elozo megmondja honnan jött a mozdony
-	**/
-	public Sin kovetkezo(Sin elozo) throws EndGameException{
-
-		if (elozo.equals(this.elozo)){
-			if(vankapu()){
-				kocsi.alagutAllapot(true);
-				kapum.belep(kocsi);
-				leptem=true;
-				return kapum.kapu().hely();
-			}
-			else{
-				return kovetkezo;
-			}
-		}
-		else if(elozo.equals(this.kovetkezo)){
-			return this.elozo;
-		}
-		else {
-			return this.elozo;
-		}
-	}
-	/**
-	 * léptetjük a kapunkat
-	 *
-	 */
-	@Override
-	public void lep() throws EndGameException{
-		if(kapum!=null && leptem==false){
-			kapum.lep();
-		}
-		else if(kapum!=null){
-			leptem=false;
-		}
-		
+		g=(Graphics)ujg;
 	}
 }
