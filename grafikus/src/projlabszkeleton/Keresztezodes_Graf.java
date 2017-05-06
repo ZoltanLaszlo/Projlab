@@ -11,7 +11,7 @@ import javax.imageio.ImageIO;
 
 public class Keresztezodes_Graf extends Sin_Graf{
 	/**
-	 * 
+	 * gg
 	 */
 	private static final long serialVersionUID = 1L;
 
@@ -19,6 +19,12 @@ public class Keresztezodes_Graf extends Sin_Graf{
 	private Keresztezodes s;
 	private static BufferedImage kereszt;
 	
+	/**
+	 *Konstruktor létrehoz egy grafikus Keresztezodes elemet
+	 *
+	 *@param s A modellbeli párja
+	 *@param allapt megadja hogy áll a valto ez most mindegy
+	 */
 	public Keresztezodes_Graf(Keresztezodes s, String allapot){
 		this.s=s;
 		this.allapot=allapot;
@@ -26,12 +32,19 @@ public class Keresztezodes_Graf extends Sin_Graf{
 			kereszt = ImageIO.read(new File("projekt/keresztezodes.png"));
 		}
 		catch (IOException e){
-			System.out.println("f�jl beolvas�s sikertelen (keresztezodes.png)");
+			System.out.println("fájl beolvasás sikertelen (keresztezodes.png)");
 		}
 		setSize(50, 50);
 		this.setBackground(Color.green);
 	}
 	
+	/**
+	 * a panel kirajzolásakor meghívott függvény
+	 * krajzoljuk a megfelelő képet
+	 * (és a rajta álló kocsikat is kirajzoltatjuk)
+	 * 
+	 * @param g grafikus elem amire rajzolhatunk
+	 */
 	@Override
 	protected void paintComponent(Graphics g){
 		//super.paintComponent(g);
