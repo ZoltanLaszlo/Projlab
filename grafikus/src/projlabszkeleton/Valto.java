@@ -93,7 +93,21 @@ public class Valto extends Sin {
 		return true;
 	}
 	
+	/**
+	 *Leovashato a 3. sin ami hozza kapcsolodik
+	 *
+	 *@return a 3. sin ami hozza kapcsolodik (sin3)
+	 */	
 	public Sin getsin3(){
 		return sin3;
+	}
+	
+	/**
+	 *Leovashato az allas true/false
+	 *
+	 *@return az aktualis allas
+	 */	
+	public boolean getallas(){
+		return allas;
 	}
 }
