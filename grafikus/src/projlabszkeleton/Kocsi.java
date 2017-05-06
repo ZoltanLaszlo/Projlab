@@ -15,9 +15,9 @@ public class Kocsi implements Elem {
 	
 	/**
 	 * Konstruktor
-	 * @param utasokSzama Az adott kocsiban lÈvı utasok sz·ma
-	 * @param szin A kocsi szÌne
-	 * @param id A kocsi azonosÌtÛja
+	 * @param utasokSzama Az adott kocsiban l√©v≈ë utasok sz√°ma
+	 * @param szin A kocsi sz√≠ne
+	 * @param id A kocsi azonos√≠t√≥ja
 	 */
 	public Kocsi(int utasokSzama, Color szin, String id){
 		this.utasokSzama = utasokSzama;
@@ -41,8 +41,8 @@ public class Kocsi implements Elem {
 	}
 
 	/**
-	 * Hozz·kˆt egy kocsit az adott kocsihoz, elıszˆr elıre, majd h·tra.
-	 * @param kocsi Az adott kocsihoz kˆtendı kocsi.
+	 * Hozz√°k√∂t egy kocsit az adott kocsihoz, el≈ësz√∂r el≈ëre, majd h√°tra.
+	 * @param kocsi Az adott kocsihoz k√∂tend≈ë kocsi.
 	 */
 	public void ad(Kocsi kocsi) {
 		if(elotte != null)
@@ -52,43 +52,51 @@ public class Kocsi implements Elem {
 	}
 
 	/**
-	 * Visszaadja egy adott kocsi szÌnÈt.
+	 * Visszaadja egy adott kocsi sz√≠n√©t.
 	 * 
-	 * @return Az adott kocsi szÌne
+	 * @return Az adott kocsi sz√≠ne
 	 */
 	public Color szin() {
 		return szin;
 	}
 	
 	/**
-	 * Hozz·rendel egy sÌn elemet az adott kocsihoz.
+	 * Hozz√°rendel egy s√≠n elemet az adott kocsihoz.
 	 * 
-	 * @param sin A hozz·rendelendı sÌn elem.
+	 * @param sin A hozz√°rendelend≈ë s√≠n elem.
 	 */
 	public void ad(Sin sin) {
 		this.sin = sin;
 	}
 
 	/**
-	 * Visszaadja az adott kocsihoz rendelt sÌnt.
-	 * @return A sÌn elemet amin Èpp a kocsi ·ll.
+	 * Visszaadja az adott kocsihoz rendelt s√≠nt.
+	 * @return A s√≠n elemet amin √©pp a kocsi √°ll.
 	 */
 	public Sin sinem() {
 		return sin;
 	}
+	
+	public Kocsi getmogotte() {
+		return mogotte;
+	}
+
+	public Kocsi getelotte() {
+		return elotte;
+	}
 
 	/**
-	 * Minden kocsi ami nem mozdony Ìgy lÈp tov·bb arra a mezıre amire az elıtte
-	 * ·llÛ kocsi k¸ldi.
+	 * Minden kocsi ami nem mozdony √≠gy l√©p tov√°bb arra a mez≈ëre amire az el≈ëtte
+	 * √°ll√≥ kocsi k√ºldi.
 	 * 
-	 * @param ide Az adott kocsi elıtt lÈvı kocsi sine.
+	 * @param ide Az adott kocsi el≈ëtt l√©v≈ë kocsi sine.
 	 * 
 	 * 
 	 **/
-	public void kocsilepj(Sin ide) throws EndGameException{	//ide: a kocsi elıtt lÈvı sÌn elem, ide lÈptetj¸k az adott kocsit
+	public void kocsilepj(Sin ide) throws EndGameException{	//ide: a kocsi el≈ëtt l√©v≈ë s√≠n elem, ide l√©ptetj√ºk az adott kocsit
 		if(!alagutAllapot){
 			sin.ad((Kocsi)null);
-			if(mogotte != null){	//ha van mÈg mˆgˆtte kocsi akkor azt r·lÈptetj¸k az adott kocsi sÌnjÈre
+			if(mogotte != null){	//ha van m√©g m√∂g√∂tte kocsi akkor azt r√°l√©ptetj√ºk az adott kocsi s√≠nj√©re
 				mogotte.kocsilepj(sin);
 			}
 			this.ad(ide);
@@ -97,19 +105,19 @@ public class Kocsi implements Elem {
 	}
 
 	/**
-	 * Be·llÌtja alagutAllapot-ot attÛl f¸ggıen, hogy a kocsi alagutban van-e.
-	 * @param b true, amikor a kocsi belÈp alag˙tba, false, ha kilÈp onnan.
+	 * Be√°ll√≠tja alagutAllapot-ot att√≥l f√ºgg≈ëen, hogy a kocsi alagutban van-e.
+	 * @param b true, amikor a kocsi bel√©p alag√∫tba, false, ha kil√©p onnan.
 	 */
 	public void alagutAllapot(boolean b) {
 		alagutAllapot = b;
 	}
 
 	/**
-	 * A magallo hÌvja meg a kocsikon ha a szÌn megegyezik. A kocsi ekkor
-	 * ellenırzi, hogy az elıtte lÈvı ˆsszes kocsi ¸res-e ha igen akkor null·ra ·llÌtja
-	 * az utasok sz·m·t.
+	 * A magallo h√≠vja meg a kocsikon ha a sz√≠n megegyezik. A kocsi ekkor
+	 * ellen≈ërzi, hogy az el≈ëtte l√©v≈ë √∂sszes kocsi √ºres-e ha igen akkor null√°ra √°ll√≠tja
+	 * az utasok sz√°m√°t.
 	 * 
-	 * @param le A meg·llÛ ahova lesz·llnak az utasok
+	 * @param le A meg√°ll√≥ ahova lesz√°llnak az utasok
 	 **/
 	public void leszallas(Megallo le) {
 		Kocsi next = elotte;
@@ -124,25 +132,25 @@ public class Kocsi implements Elem {
 	}
 
 	/**
-	 * Be·llÌtja az utasok sz·m·t az adott kocsiban.
+	 * Be√°ll√≠tja az utasok sz√°m√°t az adott kocsiban.
 	 * 
-	 * @param utasokSzama Az utasok sz·m·nak leendı ÈrtÈke.
+	 * @param utasokSzama Az utasok sz√°m√°nak leend≈ë √©rt√©ke.
 	 */
 	public void setUtasokSzama(int utasokSzama) {
 		this.utasokSzama = utasokSzama;
 	}
 	
 	/**
-	 * VisszatÈr az adott kocsiban lÈvı utasok sz·m·val.
-	 * @return Az adott kocsiban lÈvı utasok sz·ma.
+	 * Visszat√©r az adott kocsiban l√©v≈ë utasok sz√°m√°val.
+	 * @return Az adott kocsiban l√©v≈ë utasok sz√°ma.
 	 */
 	public int getUtasokSzama(){
 		return utasokSzama;
 	}
 
 	/**
-	 * Visszadja, hogy ¸res-e a kocsi vagy sem.
-	 * @return true, ha az adott kocsi ¸res.
+	 * Visszadja, hogy √ºres-e a kocsi vagy sem.
+	 * @return true, ha az adott kocsi √ºres.
 	 */
 	public boolean ures() {
 		if(utasokSzama == 0)
@@ -152,8 +160,8 @@ public class Kocsi implements Elem {
 	}
 	
 	/**
-	 * VisszatÈr a kocsi azonosÌtÛj·val.
-	 * @return A kocsi azonosÌtÛja.
+	 * Visszat√©r a kocsi azonos√≠t√≥j√°val.
+	 * @return A kocsi azonos√≠t√≥ja.
 	 */
 	public String getKocsibyID(){
 		return id;
