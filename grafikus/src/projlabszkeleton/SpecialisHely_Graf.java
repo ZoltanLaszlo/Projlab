@@ -30,10 +30,25 @@ public class SpecialisHely_Graf extends Sin_Graf{
 			alagut = ImageIO.read(new File("projekt/spechely_alagut.png"));
 		}
 		catch (IOException e){
-			System.out.println("f�jl beolvas�s sikertelen (spechely.png)");
+			System.out.println("fájl beolvasás sikertelen (spechely.png)");
 		}
 		setSize(50, 50);
 		this.setBackground(Color.green);
+		
+		//egér kattintáshoz
+		this.addMouseListener(new MouseAdapter() {
+			public void mousePressed(MouseEvent me) {
+				mouseClicked_mine();
+			}
+		});
+	}
+	
+	public void mouseClicked_mine(){
+		try{
+			s.akcio();
+		}catch(TooManyKapuException e){
+			//todo
+		}
 	}
 	
 	@Override
@@ -52,7 +67,15 @@ public class SpecialisHely_Graf extends Sin_Graf{
 		if(allapot.equals("LF")){
 			ujg.rotate(-Math.PI/2, 25, 25);			
 		}
-		ujg.drawImage(spechely, null, 0, 0);
+		if(s.vankapu()){
+			ujg.drawImage(alagut, null, 0, 0);
+		}
+		else if(s.vanSajatKapum()){
+			ujg.drawImage(kapu_noalagut, null, 0, 0);
+		}
+		else{
+			ujg.drawImage(spechely, null, 0, 0);
+		}
 		if(s.kocsi!=null){
 			ujg=kocsirajzolo.draw(ujg, s.kocsi, this.allapot);
 		}
