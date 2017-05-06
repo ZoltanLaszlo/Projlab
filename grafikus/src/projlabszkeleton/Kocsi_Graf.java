@@ -33,6 +33,10 @@ public class Kocsi_Graf {
 	private static BufferedImage mozdony;
 	private static BufferedImage mozdony_kanyar;
 	
+	/**
+	 * Konstruktor létrehozza a kocsi rajzoló objektumot
+	 * betölti a képeket a fájlból
+	 */
 	public Kocsi_Graf(){
 		try{
 			kofekete = ImageIO.read(new File("projekt/kocsi_black.png"));
@@ -64,6 +68,14 @@ public class Kocsi_Graf {
 		}
 	}
 	
+	/**
+	 * kirajzolja a kocsit arra az elemre ami meghívja
+	 * 	 * 
+	 * @param g A grafikus objektum amire rajzolni kell
+	 * @param k A modellbeli kocsi amit ki kell rajzolni
+	 * @param allapot a sin allapota amire ki kell rajzolni a kocsit
+	 * @return g az uj már megrajzolt objektum
+	 */
 	public Graphics2D draw(Graphics2D g, Kocsi k, String allapot){
 		//milyen színű a kocsi? Ez alapján választjuk ki a képet.
 		BufferedImage kocsiEgyenes = null;
@@ -154,6 +166,16 @@ public class Kocsi_Graf {
 		*/
 		return g;
 	}
+	
+	/**
+	 * kirajzolja a kocsit A kereszteződésre (a paintComponent hívja)
+	 * A kereszteződésnél figyelni kell, hogy függőleges vagy vozszintes irányban haladunk
+	 * 	 * 
+	 * @param g A grafikus objektum amire rajzolni kell
+	 * @param kep a megfelelő színű kocsi képe
+	 * @param k a modell beli kocsi amit ki kell rajzolni
+	 * @return g az uj már megrajzolt objektum
+	 */
 	private Graphics2D keresztrajzolas(Graphics2D g, BufferedImage kep, Kocsi k){
 		Keresztezodes ker=(Keresztezodes)k.sinem();
 		Sin vizsgalt=null;
@@ -175,15 +197,26 @@ public class Kocsi_Graf {
 		return g;
 	}
 
+	/**
+	 * kirajzolja a kocsit A váltóra (a paintComponent hívja)
+	 * A váltónál figyelni kell kanyarodik-e vagy sem
+	 * 	 * 
+	 * @param g A grafikus objektum amire rajzolni kell
+	 * @param kep_egyenes a megfelelő színű kocsi egyenes képe 
+	 * @param kep_kanyar a megfelelő színű kocsi kanyarodó képe
+	 * @param k a modell beli kocsi amit ki kell rajzolni
+	 * @param string a váltó állapota
+	 * @return g az uj már megrajzolt objektum
+	 */
 	private Graphics2D valtorajzolas(Graphics2D g, BufferedImage kep_egyenes, BufferedImage kep_kanyar, Kocsi k, String allapot){
 		Valto valt=(Valto)k.sinem();
 		Sin elozo=null;
 		Sin kovetkezo=null;
 		if (k.getelotte()!=null){
-			elozo=k.getelotte().sinem();
+			kovetkezo=k.getelotte().sinem();
 		}
 		if(k.getmogotte()!=null){
-			kovetkezo=k.getmogotte().sinem();
+			elozo=k.getmogotte().sinem();
 		}
 		if (kovetkezo==null){
 			try {
@@ -217,6 +250,14 @@ public class Kocsi_Graf {
 		return g;
 	}
 
+	/**
+	 * Egyenesen álló kocsira kiírja az utasok számát
+	 * megfelelően olvasható színnel és csak akkor ha nem mozdony vagy teherkocsi
+	 * 	 * 
+	 * @param g A grafikus objektum amire rajzolni kell
+	 * @param k a modell beli kocsi aminek ki kell rajzolni az utasainak a számát
+	 * @return g az uj már megrajzolt objektum
+	 */
 	private Graphics2D utasrajzolas_egyenes(Graphics2D g, Kocsi k){
 		if((k instanceof Mozdony) || (k instanceof TeherKocsi)){		//ha mozdony v teherkocsi, ne rajzoljuk ki az utasok számát
 			return g;
@@ -230,6 +271,15 @@ public class Kocsi_Graf {
 		g.drawString("" + k.getUtasokSzama(), 22, 30);
 		return g;
 	}
+	
+	/**
+	 * kanyarodó kocsira kiírja az utasok számát
+	 * megfelelően olvasható színnel és csak akkor ha nem mozdony vagy teherkocsi
+	 * 	 * 
+	 * @param g A grafikus objektum amire rajzolni kell
+	 * @param k a modell beli kocsi aminek ki kell rajzolni az utasainak a számát
+	 * @return g az uj már megrajzolt objektum
+	 */
 	private Graphics2D utasrajzolas_kanyar(Graphics2D g, Kocsi k){
 		if((k instanceof Mozdony) || (k instanceof TeherKocsi)){		//ha mozdony v teherkocsi, ne rajzoljuk ki az utasok számát
 			return g;
