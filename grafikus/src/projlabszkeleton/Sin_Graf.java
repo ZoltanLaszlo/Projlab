@@ -13,7 +13,7 @@ import javax.swing.JPanel;
 public class Sin_Graf extends JPanel{
 
 	/**
-	 * 
+	 * gg
 	 */
 	private static final long serialVersionUID = 1L;
 
@@ -24,9 +24,18 @@ public class Sin_Graf extends JPanel{
 	private static BufferedImage sinkanyar;
 	protected static Kocsi_Graf kocsirajzolo;
 	
+	/**
+	 *Konstruktor létrehoz egy ures grafikus Sin elemet
+	 */
 	public Sin_Graf(){
 	}
 	
+	/**
+	 *Konstruktor létrehoz egy grafikus Sin elemet
+	 *
+	 *@param s A modellbeli párja
+	 *@param allapt megadja hogy áll a Sin lehetséges: FL, BJ, BF, FJ, JL, LB
+	 */
 	public Sin_Graf(Sin s, String allapot){
 		this.s=s;
 		this.allapot=allapot;
@@ -35,13 +44,20 @@ public class Sin_Graf extends JPanel{
 			sinkanyar = ImageIO.read(new File("projekt/railturn.png"));
 		}
 		catch (IOException e){
-			System.out.println("f�jl beolvas�s sikertelen (sin.png)");
+			System.out.println("fájl beolvasás sikertelen (sin.png)");
 		}
 		setSize(50, 50);
 		this.setBackground(Color.green);
 		kocsirajzolo=new Kocsi_Graf();
 	}
 	
+	/**
+	 * a panel kirajzolásakor meghívott függvény
+	 * Az állapottol függően krajzoljuk a megfelelő képet
+	 * (és a rajta álló kocsikat is kirajzoltatjuk)
+	 * 
+	 * @param g grafikus elem amire rajzolhatunk
+	 */
 	@Override
 	protected void paintComponent(Graphics g){
 		super.paintComponent(g);
