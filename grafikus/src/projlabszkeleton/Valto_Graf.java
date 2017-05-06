@@ -38,6 +38,17 @@ public class Valto_Graf extends Sin_Graf{
 		}
 		setSize(50, 50);
 		this.setBackground(Color.green);
+		
+		//egér kattintáshoz
+		this.addMouseListener(new MouseAdapter() {
+			public void mousePressed(MouseEvent me) {
+				mouseClicked_mine();
+			}
+		});
+	}
+	
+	public void mouseClicked_mine(){
+		s.akcio();
 	}
 	
 	/**
