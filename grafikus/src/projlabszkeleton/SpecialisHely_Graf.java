@@ -13,7 +13,7 @@ import javax.imageio.ImageIO;
 
 public class SpecialisHely_Graf extends Sin_Graf{
 	/**
-	 * 
+	 * gg
 	 */
 	private static final long serialVersionUID = 1L;
 
@@ -23,6 +23,12 @@ public class SpecialisHely_Graf extends Sin_Graf{
 	private static BufferedImage kapu_noalagut;
 	private static BufferedImage alagut;
 	
+	/**
+	 *Konstruktor létrehoz egy grafikus SpecialisHely elemet
+	 *	
+	 *@param s A modellbeli párja
+	 *@param allapt megadja hogy áll a SpecialisHely lehetséges: FL, BJ, LF, JB
+	 */
 	public SpecialisHely_Graf(SpecialisHely s, String allapot){
 		this.s=s;
 		this.allapot=allapot;
@@ -45,6 +51,9 @@ public class SpecialisHely_Graf extends Sin_Graf{
 		});
 	}
 	
+	/**
+	 * ha a panelon egérkattintas történik meghívjuk az akcio()-t
+	 */
 	public void mouseClicked_mine(){
 		try{
 			s.akcio();
@@ -53,6 +62,13 @@ public class SpecialisHely_Graf extends Sin_Graf{
 		}
 	}
 	
+	/**
+	 * a panel kirajzolásakor meghívott függvény
+	 * Az állapottol, és a rajtalévő kapu/alagút- tól függően krajzoljuk a megfelelő képet
+	 * (és a rajta álló kocsikat is kirajzoltatjuk)
+	 * 
+	 * @param g grafikus elem amire rajzolhatunk
+	 */
 	@Override
 	protected void paintComponent(Graphics g){
 		//super.paintComponent(g);
