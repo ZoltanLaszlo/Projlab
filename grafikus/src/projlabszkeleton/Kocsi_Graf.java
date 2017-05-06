@@ -65,27 +65,80 @@ public class Kocsi_Graf {
 	}
 	
 	public Graphics2D draw(Graphics2D g, Kocsi k, String allapot){
-		if (k instanceof Mozdony && (allapot == "FL" || allapot == "BJ")){
-			g.drawImage(mozdony, null, 0, 0);
+		//milyen színű a kocsi? Ez alapján választjuk ki a képet.
+		BufferedImage kocsiEgyenes = null;
+		BufferedImage kocsiKanyar = null;
+		Color kocsiColor = k.szin();
+		if(k instanceof Mozdony){
+			kocsiEgyenes = mozdony;
+			kocsiKanyar = mozdony_kanyar;
 		}
-		else if(k instanceof Mozdony && (allapot == "BF" || allapot == "FJ" || allapot == "JL" || allapot == "LB")){
-			g.rotate(Math.PI, 25, 25);
-			g.drawImage(mozdony_kanyar, null, 0, 0);
-			g.rotate(-Math.PI, 25, 25);
-		}
-		else if(k instanceof Mozdony){
-			g.drawImage(mozdony, null, 0, 0);
-		}
-		else if(k instanceof Kocsi && (allapot == "FL" || allapot == "BJ")){
-			g.drawImage(kopiros, null, 0, 0);
-		}
-		else if(k instanceof Kocsi && (allapot == "BF" || allapot == "FJ" || allapot == "JL" || allapot == "LB")){
-			g.rotate(Math.PI, 25, 25);
-			g.drawImage(kopiros_kanyar, null, 0, 0);
-			g.rotate(-Math.PI, 25, 25);
+		else if(k instanceof TeherKocsi){
+			kocsiEgyenes = koteher;
+			kocsiKanyar = koteher_kanyar;
 		}
 		else if(k instanceof Kocsi){
-			g.drawImage(kopiros, null, 0, 0);
+			if(kocsiColor.equals(Color.black)){
+				kocsiEgyenes = kofekete;
+				kocsiKanyar = kofekete_kanyar;
+			}
+			if(kocsiColor.equals(Color.blue)){
+				kocsiEgyenes = kokek;
+				kocsiKanyar = kokek_kanyar;
+			}
+			if(kocsiColor.equals(Color.gray)){
+				kocsiEgyenes = koszurke;
+				kocsiKanyar = koszurke_kanyar;
+			}
+			if(kocsiColor.equals(Color.green)){
+				kocsiEgyenes = kozold;
+				kocsiKanyar = kozold_kanyar;
+			}
+			if(kocsiColor.equals(Color.cyan)){
+				kocsiEgyenes = kovilagoskek;
+				kocsiKanyar = kovilagoskek_kanyar;
+			}
+			if(kocsiColor.equals(Color.pink)){
+				kocsiEgyenes = korozsa;
+				kocsiKanyar = korozsa_kanyar;
+			}
+			if(kocsiColor.equals(Color.red)){
+				kocsiEgyenes = kopiros;
+				kocsiKanyar = kopiros_kanyar;
+			}
+			if(kocsiColor.equals(Color.white)){
+				kocsiEgyenes = kofeher;
+				kocsiKanyar = kofeher_kanyar;
+			}
+			if(kocsiColor.equals(Color.yellow)){
+				kocsiEgyenes = kosarga;
+				kocsiKanyar = kosarga_kanyar;
+			}
+		}
+		
+		if(allapot == "BF" || allapot == "FJ" || allapot == "JL" || allapot == "LB"){		//kanyarban vagyunk
+			g.rotate(Math.PI, 25, 25);
+			g.drawImage(kocsiKanyar, null, 0, 0);
+			if(kocsiColor.equals(Color.white) || kocsiColor.equals(Color.yellow)){
+				g.setColor(Color.black);
+				g.drawString("" + k.getUtasokSzama(), 12, 22);
+			}
+			else if(!(k instanceof Mozdony) && !(k instanceof TeherKocsi)){		//ha mozdony v teherkocsi, ne rajzoljuk ki az utasok számát
+				g.setColor(Color.white);
+				g.drawString("" + k.getUtasokSzama(), 12, 22);
+			}
+			g.rotate(-Math.PI, 25, 25);
+		}
+		else{										//egyenesben vagyunk
+			g.drawImage(kocsiEgyenes, null, 0, 0);
+			if(kocsiColor.equals(Color.white) || kocsiColor.equals(Color.yellow)){
+				g.setColor(Color.black);
+				g.drawString("" + k.getUtasokSzama(), 22, 30);
+			}
+			else if(!(k instanceof Mozdony) && !(k instanceof TeherKocsi)){		//ha mozdony v teherkocsi, ne rajzoljuk ki az utasok számát
+				g.setColor(Color.white);
+				g.drawString("" + k.getUtasokSzama(), 22, 30);
+			}
 		}
 		/*
 		if (k instanceof Mozdony){
