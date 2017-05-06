@@ -11,7 +11,7 @@ import javax.imageio.ImageIO;
 
 public class Valto_Graf extends Sin_Graf{
 	/**
-	 * 
+	 * gg
 	 */
 	private static final long serialVersionUID = 1L;
 
@@ -20,6 +20,12 @@ public class Valto_Graf extends Sin_Graf{
 	private static BufferedImage valtofalse;
 	private static BufferedImage valtotrue;
 	
+	/**
+	 *Konstruktor létrehoz egy grafikus váltó elemet
+	 *
+	 *@param s A modellbeli párja
+	 *@param allapt megadja hogy áll a valto lehetséges: BJF, BJL, JBF, JBL, FLB, FLJ, LFB, LFJ
+	 */
 	public Valto_Graf(Valto s, String allapot){
 		this.s=s;
 		this.allapot=allapot;
@@ -28,12 +34,19 @@ public class Valto_Graf extends Sin_Graf{
 			valtotrue = ImageIO.read(new File("projekt/valto_true.png"));
 		}
 		catch (IOException e){
-			System.out.println("f�jl beolvas�s sikertelen (valto.png)");
+			System.out.println("fájl beolvasás sikertelen (valto.png)");
 		}
 		setSize(50, 50);
 		this.setBackground(Color.green);
 	}
 	
+	/**
+	 * a panel kirajzolásakor meghívott függvény
+	 * Az állapottol és az allas-tól függően krajzoljuk a megfelelő képet
+	 * (és a rajta álló kocsikat is kirajzoltatjuk)
+	 * 
+	 * @param g grafikus elem amire rajzolhatunk
+	 */
 	@Override
 	protected void paintComponent(Graphics g){
 		//super.paintComponent(g);
@@ -73,7 +86,12 @@ public class Valto_Graf extends Sin_Graf{
 			ujg.translate(-25, -25);
 			ujg.rotate(Math.PI/2, 25, 25);
 		}
-		ujg.drawImage(valtofalse, null, 0, 0);
+		if(s.getallas()){
+			ujg.drawImage(valtotrue, null, 0, 0);
+		}
+		else{
+			ujg.drawImage(valtofalse, null, 0, 0);
+		}
 		if(s.kocsi!=null){
 			ujg=kocsirajzolo.draw(ujg, s.kocsi, this.allapot);
 		}
