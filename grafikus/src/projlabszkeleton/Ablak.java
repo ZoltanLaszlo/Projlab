@@ -16,6 +16,7 @@ import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JLabel;
+import javax.swing.Timer;
 
 
 public class Ablak extends JFrame {
@@ -31,19 +32,40 @@ public class Ablak extends JFrame {
 	
 	Palya_Rajzolo uj;
 	Palya p;
-	Timer t = new Timer(1000, new ActionListener() {			//a léptetéshez
-		
+	Timer t = new Timer(750, new ActionListener() {			//a léptetéshez
+
+		/**
+		 * a timer időzítő
+		 * 750 ms-onként léptetjük az elemeket és újrarajzolunk
+		 * ha EndGameExceptiont kapunk lekezeljük (következő pálya vagy vége)
+		 */
 		@Override
 		public void actionPerformed(ActionEvent e) {
 			try{
 				p.leptetes();
 				uj.repaint();
-			}catch(Exception ex){
+			}catch(EndGameException ex){
 				//todo??
+				if(ex.result()){
+					remove(uj);
+					uj=new Palya_Rajzolo();
+					p=new Palya(uj);
+					p.elsopalya();
+					uj.ready();
+					add(uj, BorderLayout.CENTER);
+					revalidate();
+					repaint();
+				}
+				if(!ex.result()){
+					System.exit(NORMAL);
+				}
 			}
 		}
 	});
-	
+
+	/**
+	 * a startgomb lenyomását figyelő ActionListener
+	 */
 	private class startGamelistener implements ActionListener{
 		public void actionPerformed(ActionEvent e){
 			if(e.getActionCommand().equals("Start!")){
@@ -52,7 +74,10 @@ public class Ablak extends JFrame {
 			}
 		}
 	}
-	
+
+	/**
+	 * konstruktor, létrehozza az ablakot, startgombot, és beállítja a kezdőképernyőt
+	 */
 	public Ablak(){
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
 		setTitle("Vonat Játék");
@@ -76,7 +101,11 @@ public class Ablak extends JFrame {
 		add(felso, BorderLayout.NORTH);
 		add(also, BorderLayout.CENTER);
 	}
-	
+
+	/**
+	 * start gomb lányomására történik, Létrehozzuk a pályarajzolót
+	 * A pályát, és elindítjuk a játékot
+	 */
 	public void start(){
 		//this.removeAll();
 		this.remove(also);
