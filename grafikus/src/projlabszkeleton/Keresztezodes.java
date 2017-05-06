@@ -1,170 +1,74 @@
 package projlabszkeleton;
 
-import java.awt.*;
-
-public class Kocsi implements Elem {
-
-	protected Kocsi elotte;
-	protected Kocsi mogotte;
-	protected Color szin;
-	protected int utasokSzama;
-	protected boolean alagutAllapot;
-	protected Sin sin;
-	protected String id;
-	
+public class Keresztezodes extends Sin {
+	private Sin sin3;
+	private Sin sin4;
 	
 	/**
-	 * Konstruktor
-	 * @param utasokSzama Az adott kocsiban lévő utasok száma
-	 * @param szin A kocsi színe
-	 * @param id A kocsi azonosítója
+	 * Konstruktor ami egy id-vel látja el a sint, hogy tudjuk kezelni
+	 *
+	 * @param  nev  A nev amit adni akarunk a sinnek
 	 */
-	public Kocsi(int utasokSzama, Color szin, String id){
-		this.utasokSzama = utasokSzama;
-		this.szin = szin;
-		elotte = null;
-		mogotte = null;
-		alagutAllapot = false;
-		this.id=id;
+	public Keresztezodes(String nev){
+		super(nev);
 	}
-	
-	
+	/**
+	 * Hozzáadja a kereszteződéshez a szomszédait,
+	 * Első hívásra az elozo nevu attributumába rakja
+	 * Második hívásra a kovetkezo nevűbe rakja
+	 * 3. hívásra a sin3 4.-re sin4
+	 * Minden további hívásra nem csinál semmit
+	 * a kereszteződésen elozo-ből kobetkezőbe vagy fordítva
+	 * és sin3-ból sin4-be vagy fordítva lehet menni
+	 *
+	 * @param  s  A sin referencia amit be akarunk rakni
+	 */
 	@Override
-	public void lep() throws EndGameException{
-		//does nothing
-	}
-
-	@Override
-	public Boolean akcio() {
-		//does nothing
-		return null;
-	}
-
-	/**
-	 * Hozzáköt egy kocsit az adott kocsihoz, először előre, majd hátra.
-	 * @param kocsi Az adott kocsihoz kötendő kocsi.
-	 */
-	public void ad(Kocsi kocsi) {
-		if(elotte != null)
-			mogotte = kocsi;
-		else
-			elotte = kocsi;
-	}
-
-	/**
-	 * Visszaadja egy adott kocsi színét.
-	 * 
-	 * @return Az adott kocsi színe
-	 */
-	public Color szin() {
-		return szin;
-	}
-	
-	/**
-	 * Hozzárendel egy sín elemet az adott kocsihoz.
-	 * 
-	 * @param sin A hozzárendelendő sín elem.
-	 */
-	public void ad(Sin sin) {
-		this.sin = sin;
-	}
-
-	/**
-	 * Visszaadja az adott kocsihoz rendelt sínt.
-	 * @return A sín elemet amin épp a kocsi áll.
-	 */
-	public Sin sinem() {
-		return sin;
-	}
-	
-	public Kocsi getmogotte() {
-		return mogotte;
-	}
-
-	public Kocsi getelotte() {
-		return elotte;
-	}
-
-	/**
-	 * Minden kocsi ami nem mozdony így lép tovább arra a mezőre amire az előtte
-	 * álló kocsi küldi.
-	 * 
-	 * @param ide Az adott kocsi előtt lévő kocsi sine.
-	 * 
-	 * 
-	 **/
-	public void kocsilepj(Sin ide) throws EndGameException{	//ide: a kocsi előtt lévő sín elem, ide léptetjük az adott kocsit
-		if(!alagutAllapot){
-			sin.ad((Kocsi)null);
-			if(mogotte != null){	//ha van még mögötte kocsi akkor azt ráléptetjük az adott kocsi sínjére
-				mogotte.kocsilepj(sin);
-			}
-			this.ad(ide);
-			ide.ad(this);
+	public void ad(Sin s){
+		if(elozo==null){
+			elozo=s;
+		} 
+		else if(kovetkezo==null){
+			kovetkezo=s;
+		} 
+		else if(sin3==null){
+			sin3=s;
+		} 
+		else if(sin4==null){
+			sin4=s;
+		}
+		else {
+			// ha tobbet akarunk hozzáadni nem csinálunk semmit
 		}
 	}
-
+	
 	/**
-	 * Beállítja alagutAllapot-ot attól függően, hogy a kocsi alagutban van-e.
-	 * @param b true, amikor a kocsi belép alagútba, false, ha kilép onnan.
+	 * Visszaadja a kocsi előző Sinje alapján, hogy hová kell lépnie
+	 *
+	 * @param  elozo  A rajta lévő mozdony előző Sin-je
+	 * @return A kovetkező Sin elem referenciáját adja vissza
 	 */
-	public void alagutAllapot(boolean b) {
-		alagutAllapot = b;
-	}
-
-	/**
-	 * A magallo hívja meg a kocsikon ha a szín megegyezik. A kocsi ekkor
-	 * ellenőrzi, hogy az előtte lévő összes kocsi üres-e ha igen akkor nullára állítja
-	 * az utasok számát.
-	 * 
-	 * @param le A megálló ahova leszállnak az utasok
-	 **/
-	public void leszallas(Megallo le) {
-		Kocsi next = elotte;
-		
-		while(next != null){
-			if(!next.ures())
-				return;
-			next = next.elotte;
+	public Sin kovetkezo(Sin elozo){
+		if (elozo.equals(this.elozo)){
+			return kovetkezo;
 		}
-		le.setUtasokszama(utasokSzama);
-		setUtasokSzama(0);
+		else if(elozo.equals(this.kovetkezo)){
+			return this.elozo;
+		}
+		if (elozo.equals(this.sin3)){
+			return sin4;
+		}
+		else if(elozo.equals(this.sin4)){
+			return this.sin3;
+		}
+		else {
+			return null;
+		}
 	}
-
-	/**
-	 * Beállítja az utasok számát az adott kocsiban.
-	 * 
-	 * @param utasokSzama Az utasok számának leendő értéke.
-	 */
-	public void setUtasokSzama(int utasokSzama) {
-		this.utasokSzama = utasokSzama;
+	public Sin getsin3(){
+		return sin3;
 	}
-	
-	/**
-	 * Visszatér az adott kocsiban lévő utasok számával.
-	 * @return Az adott kocsiban lévő utasok száma.
-	 */
-	public int getUtasokSzama(){
-		return utasokSzama;
+	public Sin getsin4(){
+		return sin4;
 	}
-
-	/**
-	 * Visszadja, hogy üres-e a kocsi vagy sem.
-	 * @return true, ha az adott kocsi üres.
-	 */
-	public boolean ures() {
-		if(utasokSzama == 0)
-			return true;
-		
-		return false;
-	}
-	
-	/**
-	 * Visszatér a kocsi azonosítójával.
-	 * @return A kocsi azonosítója.
-	 */
-	public String getKocsibyID(){
-		return id;
-	}
-
 }
