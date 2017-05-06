@@ -5,7 +5,7 @@ public class Valto extends Sin {
 	private boolean allas=false;
 	
 	/**
-	 * Konstruktor ami egy id-vel l·tja el a sint, hogy tudjuk kezelni
+	 * Konstruktor ami egy id-vel l√°tja el a sint, hogy tudjuk kezelni
 	 *
 	 * @param  nev  A nev amit adni akarunk a sinnek
 	 */
@@ -14,13 +14,13 @@ public class Valto extends Sin {
 	}
 	
 	/**
-	 * Hozz·adja a v·ltÛhoz a szomszÈdait,
-	 * Elsı hÌv·sra az elozo nevu attributum·ba rakja
-	 * M·sodik hÌv·sra a kovetkezo nev˚be rakja
-	 * 3. hÌv·sra a sin3 nev˚be rakja
-	 * Minden tov·bbi hÌv·sra nem csin·l semmit
-	 * a valtÛ allasatÛl f¸ggıen elozo-bıl kovetkezo, vagy sin3 -ra lÈphet a mozdony
-	 * sin3-bÛl Ès kovetkezo-bÛl pedig elozı felÈ mehet a vonat
+	 * Hozz√°adja a v√°lt√≥hoz a szomsz√©dait,
+	 * Els≈ë h√≠v√°sra az elozo nevu attributum√°ba rakja
+	 * M√°sodik h√≠v√°sra a kovetkezo nev≈±be rakja
+	 * 3. h√≠v√°sra a sin3 nev≈±be rakja
+	 * Minden tov√°bbi h√≠v√°sra nem csin√°l semmit
+	 * a valt√≥ allasat√≥l f√ºgg≈ëen elozo-b≈ël kovetkezo, vagy sin3 -ra l√©phet a mozdony
+	 * sin3-b√≥l √©s kovetkezo-b√≥l pedig eloz≈ë fel√© mehet a vonat
 	 *
 	 * @param  s  A sin referencia amit be akarunk rakni
 	 */	
@@ -36,16 +36,16 @@ public class Valto extends Sin {
 			sin3=s;
 		}
 		else {
-			// ha tobbet akarunk hozz·adni nem csin·lunk semmit
+			// ha tobbet akarunk hozz√°adni nem csin√°lunk semmit
 		}
 		
 	}
 	
 	/**
-	 * Visszaadja a kocsi elızı Sinje alapj·n, hogy hov· kell lÈpnie
+	 * Visszaadja a kocsi el≈ëz≈ë Sinje alapj√°n, hogy hov√° kell l√©pnie
 	 *
-	 * @param  elozo  A rajta lÈvı mozdony elızı Sin-je
-	 * @return A kovetkezı Sin elem referenci·j·t adja vissza
+	 * @param  elozo  A rajta l√©v≈ë mozdony el≈ëz≈ë Sin-je
+	 * @return A kovetkez≈ë Sin elem referenci√°j√°t adja vissza
 	 */
 	@Override
 	public Sin kovetkezo(Sin elozo){
@@ -66,10 +66,10 @@ public class Valto extends Sin {
 	}
 
 	/**
-	 * V·ltja a v·ltÛ ·ll·s·t
-	 * alapbÛl az ÈrtÈke false (vagyis elozo-bıl kovetkezı fele megy)
-	 * Minden v·lt·s megcserÈli az ·ll·st
-	 * (ha true akkor elozo-bıl sin3 fele megy
+	 * V√°ltja a v√°lt√≥ √°ll√°s√°t
+	 * alapb√≥l az √©rt√©ke false (vagyis elozo-b≈ël kovetkez≈ë fele megy)
+	 * Minden v√°lt√°s megcser√©li az √°ll√°st
+	 * (ha true akkor elozo-b≈ël sin3 fele megy
 	 *
 	 */
 	public void valts(){
@@ -82,14 +82,18 @@ public class Valto extends Sin {
 	}
 	
 	/**
-	 * Mivel implement·lja az Elem interfÈszt, meg kell valÛsÌtania
-	 *az akcio() fv-t, ezzel Èrtes¸l arrÛl, hogy v·ltani kell
+	 * Mivel implement√°lja az Elem interf√©szt, meg kell val√≥s√≠tania
+	 *az akcio() fv-t, ezzel √©rtes√ºl arr√≥l, hogy v√°ltani kell
 	 *
-	 *@return true mert v·ltott
+	 *@return true mert v√°ltott
 	 */
 	@Override
 	public Boolean akcio(){
 		valts();
 		return true;
+	}
+	
+	public Sin getsin3(){
+		return sin3;
 	}
 }
