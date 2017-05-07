@@ -1,7 +1,9 @@
 package projlabszkeleton;
 
 import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.FlowLayout;
+import java.awt.Font;
 import java.awt.BorderLayout;
 import java.awt.Image;
 import java.awt.event.ActionEvent;
@@ -17,6 +19,7 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JLabel;
 import javax.swing.Timer;
+import javax.swing.border.LineBorder;
 
 
 public class Ablak extends JFrame {
@@ -27,57 +30,68 @@ public class Ablak extends JFrame {
 	private static final long serialVersionUID = 1L;
 	
 	private JButton start=new JButton("Start!");
+	private JButton retry = new JButton("Retry");
+	private JButton exit = new JButton("Exit");
 	private JPanel also=new JPanel();
 	private JPanel felso=new JPanel();
 	
+	int i = 0;
 	Palya_Rajzolo uj;
 	Palya p;
-	Timer t = new Timer(750, new ActionListener() {			//a léptetéshez
-
-		/**
-		 * a timer időzítő
-		 * 750 ms-onként léptetjük az elemeket és újrarajzolunk
-		 * ha EndGameExceptiont kapunk lekezeljük (következő pálya vagy vége)
-		 */
+	Timer t = new Timer(1000, new ActionListener() {			//a léptetéshez
+		
 		@Override
 		public void actionPerformed(ActionEvent e) {
 			try{
 				p.leptetes();
 				uj.repaint();
-			}catch(EndGameException ex){
-				//todo??
-				if(ex.result()){
+			} catch (EndGameException ex) {
+				// todo??
+				if (ex.result()) {
 					remove(uj);
-					uj=new Palya_Rajzolo();
-					p=new Palya(uj);
+					uj = new Palya_Rajzolo();
+					p = new Palya(uj);
 					p.elsopalya();
 					uj.ready();
 					add(uj, BorderLayout.CENTER);
 					revalidate();
 					repaint();
 				}
-				if(!ex.result()){
-					System.exit(NORMAL);
+				if (!ex.result()) {
+					t.stop();
+					remove(uj);
+					felso.removeAll();
+					also.removeAll();
+					JLabel gameOver = new JLabel("Ütközés, Game Over");
+					gameOver.setFont(new Font(gameOver.getFont().getName(), gameOver.getFont().getStyle(), 30));
+					gameOver.setForeground (Color.red);
+					felso.add(gameOver, FlowLayout.LEFT);
+					also.add(exit, FlowLayout.LEFT);
+					also.add(retry, FlowLayout.LEFT);
+					add(felso, BorderLayout.NORTH);
+					add(also, BorderLayout.CENTER);
+					revalidate();
+					repaint();
+					
+					//System.exit(NORMAL);
 				}
 			}
 		}
 	});
-
-	/**
-	 * a startgomb lenyomását figyelő ActionListener
-	 */
+	
 	private class startGamelistener implements ActionListener{
 		public void actionPerformed(ActionEvent e){
-			if(e.getActionCommand().equals("Start!")){
+			String command = e.getActionCommand();
+			if(command.equals("Start!") || command.equals("Retry")){
 				start();
 				t.start();
 			}
+			if(command.equals("Exit")){
+				System.exit(NORMAL);
+			}
 		}
 	}
-
-	/**
-	 * konstruktor, létrehozza az ablakot, startgombot, és beállítja a kezdőképernyőt
-	 */
+	
 	public Ablak(){
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
 		setTitle("Vonat Játék");
@@ -88,6 +102,8 @@ public class Ablak extends JFrame {
 		setLayout(myLayout);
 		startGamelistener s=new startGamelistener();
 		start.addActionListener(s);
+		retry.addActionListener(s);
+		exit.addActionListener(s);
 		BufferedImage myPicture=null;
 		try{
 		myPicture = ImageIO.read(new File("projekt/trainstart.jpg"));
@@ -101,11 +117,7 @@ public class Ablak extends JFrame {
 		add(felso, BorderLayout.NORTH);
 		add(also, BorderLayout.CENTER);
 	}
-
-	/**
-	 * start gomb lányomására történik, Létrehozzuk a pályarajzolót
-	 * A pályát, és elindítjuk a játékot
-	 */
+	
 	public void start(){
 		//this.removeAll();
 		this.remove(also);
