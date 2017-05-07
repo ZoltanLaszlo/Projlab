@@ -38,8 +38,13 @@ public class Ablak extends JFrame {
 	int i = 0;
 	Palya_Rajzolo uj;
 	Palya p;
-	Timer t = new Timer(1000, new ActionListener() {			//a léptetéshez
+	Timer t = new Timer(750, new ActionListener() {			//a léptetéshez
 		
+		/**
+		 * a timer időzítő
+		 * 750 ms-onként léptetjük az elemeket és újrarajzolunk
+		 * ha EndGameExceptiont kapunk lekezeljük (következő pálya vagy vége)
+		 */
 		@Override
 		public void actionPerformed(ActionEvent e) {
 			try{
@@ -79,6 +84,9 @@ public class Ablak extends JFrame {
 		}
 	});
 	
+	/**
+	 * a startgomb lenyomását figyelő ActionListener
+	 */
 	private class startGamelistener implements ActionListener{
 		public void actionPerformed(ActionEvent e){
 			String command = e.getActionCommand();
@@ -92,6 +100,9 @@ public class Ablak extends JFrame {
 		}
 	}
 	
+	/**
+	 * konstruktor, létrehozza az ablakot, startgombot, és beállítja a kezdőképernyőt
+	 */
 	public Ablak(){
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
 		setTitle("Vonat Játék");
@@ -118,6 +129,10 @@ public class Ablak extends JFrame {
 		add(also, BorderLayout.CENTER);
 	}
 	
+	/**
+	 * start gomb lányomására történik, Létrehozzuk a pályarajzolót
+	 * A pályát, és elindítjuk a játékot
+	 */
 	public void start(){
 		//this.removeAll();
 		this.remove(also);
